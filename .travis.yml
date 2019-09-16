@@ -1,11 +1,11 @@
 os:
   - linux
-  - osx
 language: csharp
 solution: DeadFishStudio.InfnetDevOpsSolution.sln
 mono: none
-dotnet: 2.0.0
-dist: trusty
+sudo: required
+dist: xenial
+dotnet: 2.2
 before_install:
   - cd .travis/
   - chmod +x build.sh
