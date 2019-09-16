@@ -10,8 +10,8 @@ before_install:
   - cd .travis/
   - chmod +x build.sh
   #- chmod +x test.sh
-  - chmod +x codecov.sh
+  #- chmod +x codecov.sh
 script:
   - sudo ./build.sh --quiet verify
-  - sudo ./test.sh --quiet verify
-  - sudo ./codecov.sh --quiet verify
+  #- sudo ./test.sh --quiet verify
+  #- sudo ./codecov.sh --quiet verify
