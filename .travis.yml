@@ -3,9 +3,8 @@ os:
   - osx
 language: csharp
 solution: DeadFishStudio.InfnetDevOpsSolution.sln
-mono:
-  - latest
-dotnet: 2.2.402
+mono: none
+dotnet: 2.0.0
 dist: xenial
 before_install:
   - cd .travis/
