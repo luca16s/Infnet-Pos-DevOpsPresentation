@@ -2,7 +2,7 @@ os:
   - linux
   - osx
 language: csharp
-solution: Infnet-Pos-DevOpsPresentation.sln
+solution: DeadFishStudio.InfnetDevOpsSolution.sln
 mono:
   - latest
 dotnet: 2.2.402
