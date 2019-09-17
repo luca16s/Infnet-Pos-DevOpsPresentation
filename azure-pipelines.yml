@@ -23,6 +23,8 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        defaultContext: false
+        context: '$(System.DefaultWorkingDirectory)'
         command: build
         dockerfile: '$(System.DefaultWorkingDirectory)/DeadFishStudio.Product.Application.Api/Dockerfile'
         tags: |
