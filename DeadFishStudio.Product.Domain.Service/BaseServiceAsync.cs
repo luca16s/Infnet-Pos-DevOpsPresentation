@@ -11,9 +11,9 @@ namespace DeadFishStudio.Product.Domain.Service
     {
         private readonly IBaseRepositoryAsync<T> _repositoryAsync;
 
-        public BaseServiceAsync(IBaseRepositoryAsync<T> baseRepositoryAsync)
+        public BaseServiceAsync(IBaseRepositoryAsync<T> productRepositoryAsync)
         {
-            _repositoryAsync = baseRepositoryAsync;
+            _repositoryAsync = productRepositoryAsync;
         }
 
         public async Task<T> AddItemAsync(T item)

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.Product.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.Product.Infrastructure.CrossCutting", "DeadFishStudio.Product.Infrastructure.CrossCutting\DeadFishStudio.Product.Infrastructure.CrossCutting.csproj", "{76D18134-F3BC-44EB-9B84-A023B3F17540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.Product.Application.Api", "DeadFishStudio.Product.Application.Api\DeadFishStudio.Product.Application.Api.csproj", "{38FE1136-0E2C-4644-B44B-92EC3BF2A3DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.Product.Application.Api", "DeadFishStudio.Product.Application.Api\DeadFishStudio.Product.Application.Api.csproj", "{38FE1136-0E2C-4644-B44B-92EC3BF2A3DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.InfnetDevOps.Shared", "DeadFishStudio.InfnetDevOps.Shared\DeadFishStudio.InfnetDevOps.Shared.csproj", "{F86C38BC-5A00-4C09-9526-ABCB0055E278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{38FE1136-0E2C-4644-B44B-92EC3BF2A3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38FE1136-0E2C-4644-B44B-92EC3BF2A3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38FE1136-0E2C-4644-B44B-92EC3BF2A3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86C38BC-5A00-4C09-9526-ABCB0055E278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86C38BC-5A00-4C09-9526-ABCB0055E278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86C38BC-5A00-4C09-9526-ABCB0055E278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86C38BC-5A00-4C09-9526-ABCB0055E278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
