@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DeadFishStudio.Product.Infrastructure.Data.Context.Configuration;
+﻿using DeadFishStudio.Product.Infrastructure.Data.Context.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeadFishStudio.Product.Infrastructure.Data.Context
