@@ -3,7 +3,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-MAINTAINER Gian Luca da Silva Figueiredo luca.gian16@outlook.com
+LABEL maintainer="luca.gian16@outlook.com"
+LABEL version="1.0"
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
