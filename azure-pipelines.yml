@@ -24,6 +24,6 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/DeadFishStudio.Product.Application.Api/Dockerfile'
+        dockerfile: '/DeadFishStudio.Product.Application.Api/Dockerfile'
         tags: |
           $(tag)
