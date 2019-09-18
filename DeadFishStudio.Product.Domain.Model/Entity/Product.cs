@@ -1,4 +1,5 @@
-﻿using DeadFishStudio.Product.Domain.Model.ObjectOfValue;
+﻿using System.Collections.Generic;
+using DeadFishStudio.Product.Domain.Model.ObjectOfValue;
 using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.Product.Domain.Model.Entity
@@ -7,6 +8,6 @@ namespace DeadFishStudio.Product.Domain.Model.Entity
     {
         public string Name { get; set; }
         public int Quantity { get; set; }
-        public Price Price { get; set; }
+        public virtual List<Price> Prices { get; set; }
     }
 }

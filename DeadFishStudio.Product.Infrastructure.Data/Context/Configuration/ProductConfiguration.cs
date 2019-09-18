@@ -25,7 +25,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context.Configuration
                 .HasColumnName("PDCT_QUANTITY");
 
             builder
-                .OwnsOne<Domain.Model.Entity.Product>("Price", price =>
+                .OwnsMany<Domain.Model.ObjectOfValue.Price>("Prices", price =>
                 {
                     price.HasForeignKey("PDCT_SQ_PRODUCT");
                     price.HasKey("PDCT_SQ_PRODUCT");

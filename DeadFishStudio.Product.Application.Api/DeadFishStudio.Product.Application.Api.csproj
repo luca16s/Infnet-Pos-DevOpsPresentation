@@ -8,13 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.12" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\DeadFishStudio.InfnetDevOps.Shared\DeadFishStudio.InfnetDevOps.Shared.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Service\DeadFishStudio.Product.Domain.Service.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Infrastructure.CrossCutting\DeadFishStudio.Product.Infrastructure.CrossCutting.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Infrastructure.Data\DeadFishStudio.Product.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

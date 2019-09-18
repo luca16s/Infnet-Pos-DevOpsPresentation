@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Service\DeadFishStudio.Product.Domain.Service.csproj" />
     <ProjectReference Include="..\DeadFishStudio.Product.Infrastructure.Data\DeadFishStudio.Product.Infrastructure.Data.csproj" />
   </ItemGroup>
 

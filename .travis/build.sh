@@ -8,4 +8,6 @@
 
 ( cd ../DeadFishStudio.Product.Infrastructure.CrossCutting/ && dotnet restore && dotnet build )
 
+( cd ../DeadFishStudio.InfnetDevOps.Shared/ && dotnet restore && dotnet build )
+
 ( cd ../DeadFishStudio.Product.Application.Api/  && dotnet restore && dotnet build )
