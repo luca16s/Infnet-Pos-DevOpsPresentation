@@ -25,7 +25,7 @@ namespace DeadFishStudio.Product.Application.Api
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../DeadFishStudio.Product.Application.Api"))
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{environment}.json", optional: true)
                 .AddEnvironmentVariables()
@@ -33,7 +33,6 @@ namespace DeadFishStudio.Product.Application.Api
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<ProductConfiguration>(Configuration.GetSection(nameof(ProductConfiguration)));
-            //services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
             Injection.Services(services, config);
             services.AddAutoMapper(typeof(Startup));
         }
