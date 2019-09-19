@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Domain.Model\DeadFishStudio.MarketList.Domain.Model.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Infrastructure.Data\DeadFishStudio.MarketList.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />
+  </ItemGroup>
+
+</Project>
