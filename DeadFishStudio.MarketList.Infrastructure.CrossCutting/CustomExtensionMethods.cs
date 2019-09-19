@@ -1,20 +1,20 @@
 ﻿using System;
-using DeadFishStudio.Product.Infrastructure.Data.Context;
+using DeadFishStudio.MarketList.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.EntityFrameworkCore.Extensions;
 
-namespace DeadFishStudio.Product.Infrastructure.CrossCutting
+namespace DeadFishStudio.MarketList.Infrastructure.CrossCutting
 {
     internal static class CustomExtensionsMethods
     {
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services,
-            ProductConfiguration configuration)
+            MarketListConfiguration configuration)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
             services.AddEntityFrameworkMySQL()
-                .AddDbContext<ProductContext>(options =>
+                .AddDbContext<MarketListContext>(options =>
                 {
                     options
                         .UseMySQL(configuration.ConnectionString);

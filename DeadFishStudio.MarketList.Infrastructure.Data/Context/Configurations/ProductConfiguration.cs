@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DeadFishStudio.Product.Infrastructure.Data.Context.Configuration
+namespace DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Domain.Model.Entity.Product>
+    public class ProductConfiguration : IEntityTypeConfiguration<Product.Domain.Model.Entity.Product>
     {
-        public void Configure(EntityTypeBuilder<Domain.Model.Entity.Product> builder)
+        public void Configure(EntityTypeBuilder<Product.Domain.Model.Entity.Product> builder)
         {
             builder
                 .ToTable("PRODUCT");

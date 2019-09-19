@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using DeadFishStudio.Product.Infrastructure.Data.Context.Configuration;
+using DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations;
 using GianLuca.Domain.Core.Interfaces.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace DeadFishStudio.Product.Infrastructure.Data.Context
+namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 {
-    public class ProductContext : DbContext, IUnitOfWork
+    public class MarketListContext : DbContext, IUnitOfWork
     {
         public const string DefaultSchema = "deadfish";
 
-        public ProductContext(DbContextOptions options) : base(options)
+        private IDbContextTransaction _currentTransaction;
+
+        public MarketListContext(DbContextOptions options) : base(options)
         {
         }
 
-        public virtual DbSet<Domain.Model.Entity.Product> ProductDbSet { get; set; }
+        public bool HasActiveTransaction => _currentTransaction != null;
+
+        public virtual DbSet<Domain.Model.Entities.MarketList> MarketListDbSet { get; set; }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -41,6 +46,8 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             _ = builder.HasDefaultSchema(DefaultSchema);
+            _ = builder.ApplyConfiguration(new MarketListConfiguration());
+            _ = builder.ApplyConfiguration(new ItemsConfiguration());
             _ = builder.ApplyConfiguration(new ProductConfiguration());
             _ = builder.ApplyConfiguration(new PriceConfiguration());
             base.OnModelCreating(builder);

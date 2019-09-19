@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DeadFishStudio.Product.Infrastructure.Data.Context.Configuration
+namespace DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations
 {
     public class PriceConfiguration : IEntityTypeConfiguration<Price>
     {

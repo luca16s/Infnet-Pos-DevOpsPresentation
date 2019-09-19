@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeadFishStudio.Product.Infrastructure.Data.Context;
+using DeadFishStudio.MarketList.Infrastructure.Data.Context;
 using GianLuca.Domain.Core.Entity;
 using GianLuca.Domain.Core.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
+namespace DeadFishStudio.MarketList.Infrastructure.Data.Repositories
 {
     public class BaseRepositoryAsync<T> : IBaseRepositoryAsync<T> where T : BaseEntity
     {
-        protected ProductContext Context;
+        protected MarketListContext Context;
 
-        public BaseRepositoryAsync(ProductContext productContext)
+        public BaseRepositoryAsync(MarketListContext marketListContext)
         {
-            Context = productContext;
+            Context = marketListContext;
             DbSet = Context.Set<T>();
         }
 

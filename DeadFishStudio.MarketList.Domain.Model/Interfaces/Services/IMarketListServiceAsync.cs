@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DeadFishStudio.MarketList.Domain.Model.Entities;
 using GianLuca.Domain.Core.Entity;
 using GianLuca.Domain.Core.Interfaces.Services;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Interfaces.Services
 {
-    public interface IMarketListServiceAsync<T> : IBaseServiceAsync<MarketList<T>> where T: BaseEntity
+    public interface IMarketListServiceAsync : IBaseServiceAsync<Entities.MarketList>
     {
-        int CalculaQuantidadeDeItemsNaLista(List<Items<T>> items);
-        decimal CalculaPrecoTotalDaLista(List<Items<T>> items);
-        int CalculaQuantidadeTotalPorItem(string nomeItem, List<Items<T>> items);
-        decimal CalculaPrecoTotalPorItem(string nomeItem, List<Items<T>> items);
+        int CalculaQuantidadeDeItemsNaLista(Items<Product.Domain.Model.Entity.Product> items);
+        decimal CalculaPrecoTotalDaLista(Items<Product.Domain.Model.Entity.Product> items);
+        int CalculaQuantidadeTotalPorItem(string nomeItem, Items<Product.Domain.Model.Entity.Product> items);
+        decimal CalculaPrecoTotalPorItem(string nomeItem, Items<Product.Domain.Model.Entity.Product> items);
     }
 }

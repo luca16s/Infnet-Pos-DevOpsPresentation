@@ -16,8 +16,8 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
             // Build config
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../DeadFishStudio.Product.Application.Api"))
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment}.json", optional: true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{environment}.json", true)
                 .AddEnvironmentVariables()
                 .Build();
 

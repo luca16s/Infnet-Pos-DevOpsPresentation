@@ -5,7 +5,6 @@ namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels
 {
     public class BaseViewModel
     {
-        [HiddenInput(DisplayValue = false)]
-        public Guid Id { get; set; }
+        [HiddenInput(DisplayValue = false)] public Guid Id { get; set; }
     }
 }

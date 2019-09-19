@@ -9,4 +9,8 @@
     <PackageReference Include="GianLuca.Domain.Core" Version="1.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />
+  </ItemGroup>
+
 </Project>

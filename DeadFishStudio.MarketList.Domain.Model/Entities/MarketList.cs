@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Entities
 {
-    public class MarketList<T> : BaseEntity where T : BaseEntity
+    public class MarketList : BaseEntity
     {
+        private DateTime? _dataDeCriacao;
+
+        private DateTime? _dataDeModificacao;
         private string _name = string.Empty;
+
         public string Nome
         {
             get => _name;
@@ -18,7 +21,6 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             }
         }
 
-        private DateTime? _dataDeCriacao;
         public DateTime DataDeCriacao
         {
             get => _dataDeCriacao ?? DateTime.Now;
@@ -30,26 +32,20 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             }
         }
 
-        private DateTime? _dataDeModificacao;
         public DateTime DataDeModificacao
         {
             get => _dataDeModificacao ?? DateTime.Now;
             set => _dataDeModificacao = DateTime.Now;
         }
 
-        public List<Items<T>> Items { get; } = new List<Items<T>>();
+        public Items<Product.Domain.Model.Entity.Product> Items { get; } =
+            new Items<Product.Domain.Model.Entity.Product>();
 
-        public bool AdicionaItemALista(Items<T> items)
+        public bool AdicionaItemALista(Product.Domain.Model.Entity.Product items)
         {
             if (items is null)
             {
                 AddNotification("items", "O items a ser inserido não pode ser nulo.");
-                return false;
-            }
-
-            if (items.Count <= 0)
-            {
-                AddNotification("Items", "A lista deve conter items para que o possa ser removido.");
                 return false;
             }
 
@@ -70,17 +66,11 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             return Items.Count > 0;
         }
 
-        public bool RemoveItemDaLista(Items<T> items)
+        public bool RemoveItemDaLista(Product.Domain.Model.Entity.Product items)
         {
             if (items is null)
             {
                 AddNotification("items", "O item a ser removido nao pode ser nulo.");
-                return false;
-            }
-
-            if (items.Count <= 0)
-            {
-                AddNotification("Items", "A lista deve conter items para que o possa ser removido.");
                 return false;
             }
 
