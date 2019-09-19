@@ -26,13 +26,13 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
             var price1 = new Price()
             {
                 Currency = "Real",
-                Amount = 10m
+                Amount = 5m
             };
 
             var price2 = new Price()
             {
                 Currency = "Real",
-                Amount = 10m
+                Amount = 15m
             };
 
             _itemMercado1.Add(new Product.Domain.Model.Entity.Product()
@@ -110,11 +110,9 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
         [Fact]
         public void AdicionaItemNuloNaListaDeItems()
         {
-            Items<Product.Domain.Model.Entity.Product> item = null;
+            _listaMercado.AdicionaItemALista(null);
 
-            _listaMercado.AdicionaItemALista(item);
-
-            Assert.DoesNotContain(item, _listaMercado.Items);
+            Assert.DoesNotContain(null, _listaMercado.Items);
         }
 
         [Fact]
@@ -138,9 +136,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
         [Fact]
         public void RemoveItemNuloDaLista()
         {
-            Items<Product.Domain.Model.Entity.Product> item = null;
-
-            _listaMercado.RemoveItemDaLista(item);
+            _listaMercado.RemoveItemDaLista(null);
 
             VerificaMensagem("O item a ser removido não pode ser nulo.");
         }
@@ -171,9 +167,9 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
         {
             _listaMercado.AdicionaItemALista(_itemMercado1);
 
-            //var resultado = _listaMercado.CalculaPrecoTotalDaLista(_listaMercado.Items);
+            var resultado = _marketListService.CalculaPrecoTotalDaLista(_listaMercado.Items);
 
-            //Assert.Equal(50, resultado);
+            Assert.Equal(50, resultado);
         }
 
         [Fact]
@@ -182,9 +178,9 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
             _listaMercado.AdicionaItemALista(_itemMercado1);
             _listaMercado.AdicionaItemALista(_itemMercado2);
 
-            //_listaMercado.CalculaQuantidadeTotalPorItem(_itemMercado1.Nome, _listaMercado.Items);
+            _marketListService.CalculaQuantidadeTotalPorItem(_itemMercado1[0].Name, _listaMercado.Items);
 
-            //Assert.Equal(15, _itemMercado2.Quantidade);
+            Assert.Equal(15, _itemMercado2[0].Quantity);
         }
 
         internal void VerificaMensagem(string message)
