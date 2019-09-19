@@ -138,7 +138,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
         {
             _listaMercado.RemoveItemDaLista(null);
 
-            VerificaMensagem("O item a ser removido não pode ser nulo.");
+            VerificaMensagem("O item a ser removido nao pode ser nulo.");
         }
 
         [Fact]

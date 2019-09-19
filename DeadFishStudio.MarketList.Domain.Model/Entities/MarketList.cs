@@ -74,7 +74,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
         {
             if (items is null)
             {
-                AddNotification("items", "O item a ser removido não pode ser nulo.");
+                AddNotification("items", "O item a ser removido nao pode ser nulo.");
                 return false;
             }
 
@@ -86,7 +86,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
 
             if (Items is null)
             {
-                AddNotification("Items", "A lista de Items não pode ser nula.");
+                AddNotification("Items", "A lista de Items nao pode ser nula.");
                 return false;
             }
 
@@ -98,7 +98,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
 
             if (!Items.Contains(items))
             {
-                AddNotification("Items", "A lista não contém o elemento.");
+                AddNotification("Items", "A lista nao contém o elemento.");
                 return false;
             }
 
