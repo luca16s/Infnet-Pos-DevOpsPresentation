@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="OpenCover" Version="4.7.922" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Domain.Model\DeadFishStudio.MarketList.Domain.Model.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Domain.Service\DeadFishStudio.MarketList.Domain.Service.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />
+  </ItemGroup>
+
+</Project>
