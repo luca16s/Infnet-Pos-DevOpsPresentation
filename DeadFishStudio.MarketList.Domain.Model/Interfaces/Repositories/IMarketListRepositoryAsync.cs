@@ -8,6 +8,5 @@ namespace DeadFishStudio.MarketList.Domain.Model.Interfaces.Repositories
 {
     public interface IMarketListRepositoryAsync
     {
-        
     }
 }

@@ -11,9 +11,8 @@ namespace DeadFishStudio.MarketList.Domain.Service
 {
     public class MarketListServiceAsync : BaseServiceAsync<MarketList<Product.Domain.Model.Entity.Product>>, IMarketListServiceAsync<Product.Domain.Model.Entity.Product>
     {
-        public MarketListServiceAsync() : base()
+        public MarketListServiceAsync()
         {
-
         }
 
         public MarketListServiceAsync(IBaseRepositoryAsync<MarketList<Product.Domain.Model.Entity.Product>> baseRepositoryAsync) : base(baseRepositoryAsync)
