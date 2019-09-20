@@ -1,8 +1,7 @@
 ﻿using System;
 using DeadFishStudio.MarketList.Infrastructure.Data.Context;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.EntityFrameworkCore.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeadFishStudio.MarketList.Infrastructure.CrossCutting
 {
@@ -13,11 +12,11 @@ namespace DeadFishStudio.MarketList.Infrastructure.CrossCutting
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
-            services.AddEntityFrameworkMySQL()
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<MarketListContext>(options =>
                 {
                     options
-                        .UseMySQL(configuration.ConnectionString);
+                        .UseSqlServer(configuration.ConnectionString);
                 });
 
             return services;

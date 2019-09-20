@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.InfnetDevOps.Shared\DeadFishStudio.InfnetDevOps.Shared.csproj" />
   </ItemGroup>
 
 </Project>

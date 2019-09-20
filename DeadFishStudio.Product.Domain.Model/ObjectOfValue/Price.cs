@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DeadFishStudio.Product.Domain.Model.ObjectOfValue
+﻿namespace DeadFishStudio.Product.Domain.Model.ObjectOfValue
 {
     public class Price
     {

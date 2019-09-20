@@ -1,58 +1,38 @@
 using System;
-using System.Collections.Generic;
-using DeadFishStudio.MarketList.Domain.Model.Entities;
 using DeadFishStudio.MarketList.Domain.Service;
-using DeadFishStudio.Product.Domain.Model.ObjectOfValue;
 using Xunit;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Tests
 {
     public class ToDoListMercadoUnitTest
     {
+
+        private readonly Entities.MarketList _listaMercado;
+        private readonly MarketListProduct _itemMercado1;
+        private readonly MarketListProduct _itemMercado2;
+        private readonly MarketListServiceAsync _marketListService;
+
         public ToDoListMercadoUnitTest()
         {
             _listaMercado = new Entities.MarketList();
-            _itemMercado1 = new Product.Domain.Model.Entity.Product();
-            _itemMercado2 = new Product.Domain.Model.Entity.Product();
+            _itemMercado1 = new MarketListProduct();
+            _itemMercado2 = new MarketListProduct();
             _marketListService = new MarketListServiceAsync();
 
-            var price1 = new Price
-            {
-                Currency = "Real",
-                Amount = 5m
-            };
-
-            var price2 = new Price
-            {
-                Currency = "Real",
-                Amount = 15m
-            };
-
-            _itemMercado1 = new Product.Domain.Model.Entity.Product
+            _itemMercado1 = new MarketListProduct
             {
                 Name = "Uva",
-                Prices = new List<Price>
-                {
-                    price1
-                },
+                Price = 5m,
                 Quantity = 10
             };
 
-            _itemMercado2 = new Product.Domain.Model.Entity.Product
+            _itemMercado2 = new MarketListProduct
             {
                 Name = "Pera",
-                Prices = new List<Price>
-                {
-                    price2
-                },
+                Price = 15m,
                 Quantity = 15
             };
         }
-
-        private readonly Entities.MarketList _listaMercado;
-        private readonly Product.Domain.Model.Entity.Product _itemMercado1;
-        private readonly Product.Domain.Model.Entity.Product _itemMercado2;
-        private readonly MarketListServiceAsync _marketListService;
 
         internal void VerificaMensagem(string message)
         {

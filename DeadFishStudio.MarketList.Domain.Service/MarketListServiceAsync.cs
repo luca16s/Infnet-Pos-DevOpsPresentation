@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using DeadFishStudio.MarketList.Domain.Model;
 using DeadFishStudio.MarketList.Domain.Model.Entities;
 using DeadFishStudio.MarketList.Domain.Model.Interfaces.Repositories;
 using DeadFishStudio.MarketList.Domain.Model.Interfaces.Services;
-using GianLuca.Domain.Core.Interfaces.Repository;
 
 namespace DeadFishStudio.MarketList.Domain.Service
 {
@@ -20,7 +19,7 @@ namespace DeadFishStudio.MarketList.Domain.Service
         {
         }
 
-        public int CalculaQuantidadeDeItemsNaLista(Items<Product.Domain.Model.Entity.Product> items)
+        public int CalculaQuantidadeDeItemsNaLista(Items<MarketListProduct> items)
         {
             if (items == null) return 0;
 
@@ -33,7 +32,7 @@ namespace DeadFishStudio.MarketList.Domain.Service
             return quantidadeTotal;
         }
 
-        public decimal CalculaPrecoTotalDaLista(Items<Product.Domain.Model.Entity.Product> items)
+        public decimal CalculaPrecoTotalDaLista(Items<MarketListProduct> items)
         {
             if (items == null) return 0;
 
@@ -41,13 +40,13 @@ namespace DeadFishStudio.MarketList.Domain.Service
 
             decimal valorTotal = default;
 
-            items.ToList().ForEach(y => valorTotal = y.Prices[0].Amount * y.Quantity);
+            items.ToList().ForEach(y => valorTotal = y.Price * y.Quantity);
 
             return valorTotal;
         }
 
         public int CalculaQuantidadeTotalPorItem(string nomeItem,
-            Items<Product.Domain.Model.Entity.Product> items)
+            Items<MarketListProduct> items)
         {
             if (items == null) return 0;
 
@@ -61,7 +60,7 @@ namespace DeadFishStudio.MarketList.Domain.Service
             return dicItemQuantidade[nomeItem].Sum();
         }
 
-        public decimal CalculaPrecoTotalPorItem(string nomeItem, Items<Product.Domain.Model.Entity.Product> items)
+        public decimal CalculaPrecoTotalPorItem(string nomeItem, Items<MarketListProduct> items)
         {
             if (items == null) return 0;
 
@@ -70,7 +69,7 @@ namespace DeadFishStudio.MarketList.Domain.Service
             if (items.Count == 0) return 0;
 
             ILookup<string, decimal> dicItemPreco = null;
-            dicItemPreco = items.ToList().ToLookup(y => y.Name, y => y.Prices[0].Amount);
+            dicItemPreco = items.ToList().ToLookup(y => y.Name, y => y.Price);
 
             return dicItemPreco[nomeItem].Sum();
         }

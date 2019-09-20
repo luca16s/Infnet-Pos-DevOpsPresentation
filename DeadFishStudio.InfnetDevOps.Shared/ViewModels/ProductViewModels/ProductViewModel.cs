@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels
 {
@@ -12,6 +13,6 @@ namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels
         public int Quantity { get; set; }
 
         [Required] [Display(Name = "Preco:")]
-        public PriceViewModel Price { get; set; }
+        public List<PriceViewModel> Prices { get; set; }
     }
 }

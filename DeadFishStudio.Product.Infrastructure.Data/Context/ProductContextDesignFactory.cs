@@ -24,7 +24,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
             // Get connection string
             var optionsBuilder = new DbContextOptionsBuilder<ProductContext>();
             var connectionString = config.GetConnectionString(nameof(ProductContext));
-            optionsBuilder.UseMySQL(connectionString);
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             return new ProductContext(optionsBuilder.Options);
         }
     }

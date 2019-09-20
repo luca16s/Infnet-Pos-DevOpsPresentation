@@ -25,7 +25,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
             // Get connection string
             var optionsBuilder = new DbContextOptionsBuilder<MarketListContext>();
             var connectionString = config.GetConnectionString(nameof(MarketListContext));
-            optionsBuilder.UseMySQL("Server=db;port=3306;Database=ProductDatabase;Uid=root;Pwd=root;");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MarketListDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             return new MarketListContext(optionsBuilder.Options);
         }
     }

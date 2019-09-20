@@ -2,7 +2,6 @@
 using DeadFishStudio.Product.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace DeadFishStudio.Product.Infrastructure.CrossCutting
 {
@@ -13,11 +12,11 @@ namespace DeadFishStudio.Product.Infrastructure.CrossCutting
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
-            services.AddEntityFrameworkMySQL()
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<ProductContext>(options =>
                 {
                     options
-                        .UseMySQL(configuration.ConnectionString);
+                        .UseSqlServer(configuration.ConnectionString);
                 });
 
             return services;
