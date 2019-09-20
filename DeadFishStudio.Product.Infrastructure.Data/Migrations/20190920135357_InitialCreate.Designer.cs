@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20190919224801_InitialCreate")]
+    [Migration("20190920135357_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                         .HasColumnName("PDCT_SQ_PRODUCT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnName("PDCT_NAME");
 
                     b.Property<int>("Quantity")
@@ -43,15 +44,25 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                 {
                     b.OwnsMany("DeadFishStudio.Product.Domain.Model.ObjectOfValue.Price", "Prices", b1 =>
                         {
-                            b1.Property<Guid>("PDCT_SQ_PRODUCT");
+                            b1.Property<bool>("IsActive")
+                                .HasColumnName("PRCE_IN_ACTIVE");
 
                             b1.Property<decimal>("Amount")
                                 .HasColumnName("PRCE_AMOUNT");
 
+                            b1.Property<DateTime>("CreateDate")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnName("PRCE_DT_CREATED");
+
                             b1.Property<string>("Currency")
+                                .IsRequired()
                                 .HasColumnName("PRCE_CURRENCY");
 
-                            b1.HasKey("PDCT_SQ_PRODUCT");
+                            b1.Property<Guid>("PDCT_SQ_PRODUCT");
+
+                            b1.HasKey("IsActive");
+
+                            b1.HasIndex("PDCT_SQ_PRODUCT");
 
                             b1.ToTable("PRICE");
 

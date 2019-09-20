@@ -16,7 +16,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     PDCT_SQ_PRODUCT = table.Column<Guid>(nullable: false),
-                    PDCT_NAME = table.Column<string>(nullable: true),
+                    PDCT_NAME = table.Column<string>(nullable: false),
                     PDCT_QUANTITY = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -29,13 +29,15 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                 schema: "deadfish",
                 columns: table => new
                 {
-                    PDCT_SQ_PRODUCT = table.Column<Guid>(nullable: false),
-                    PRCE_CURRENCY = table.Column<string>(nullable: true),
-                    PRCE_AMOUNT = table.Column<decimal>(nullable: false)
+                    PRCE_IN_ACTIVE = table.Column<bool>(nullable: false),
+                    PRCE_CURRENCY = table.Column<string>(nullable: false),
+                    PRCE_AMOUNT = table.Column<decimal>(nullable: false),
+                    PRCE_DT_CREATED = table.Column<DateTime>(nullable: false),
+                    PDCT_SQ_PRODUCT = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRICE", x => x.PDCT_SQ_PRODUCT);
+                    table.PrimaryKey("PK_PRICE", x => x.PRCE_IN_ACTIVE);
                     table.ForeignKey(
                         name: "FK_PRICE_PRODUCT_PDCT_SQ_PRODUCT",
                         column: x => x.PDCT_SQ_PRODUCT,
@@ -44,6 +46,12 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                         principalColumn: "PDCT_SQ_PRODUCT",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PRICE_PDCT_SQ_PRODUCT",
+                schema: "deadfish",
+                table: "PRICE",
+                column: "PDCT_SQ_PRODUCT");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

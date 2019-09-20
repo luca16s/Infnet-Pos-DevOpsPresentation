@@ -27,9 +27,10 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
                         .HasColumnName("MKLT_SQ_MARKET_LIST");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnName("MKLT_DT_MARKET_LIST");
+                        .HasColumnName("MKLT_DT_CREATION");
 
-                    b.Property<DateTime>("DataDeModificacao");
+                    b.Property<DateTime>("DataDeModificacao")
+                        .HasColumnName("MKLT_DT_MODIFICATION");
 
                     b.Property<string>("Nome")
                         .IsRequired()

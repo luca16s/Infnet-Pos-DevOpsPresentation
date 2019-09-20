@@ -31,7 +31,12 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations
             builder
                 .Property(ml => ml.DataDeCriacao)
                 .IsRequired()
-                .HasColumnName("MKLT_DT_MARKET_LIST");
+                .HasColumnName("MKLT_DT_CREATION");
+
+            builder
+                .Property(ml => ml.DataDeModificacao)
+                .IsRequired()
+                .HasColumnName("MKLT_DT_MODIFICATION");
 
             builder
                 .OwnsMany<MarketListProduct>("Items", it =>

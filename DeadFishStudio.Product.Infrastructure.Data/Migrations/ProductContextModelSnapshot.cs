@@ -4,6 +4,7 @@ using DeadFishStudio.Product.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
 {
@@ -26,6 +27,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                         .HasColumnName("PDCT_SQ_PRODUCT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnName("PDCT_NAME");
 
                     b.Property<int>("Quantity")
@@ -40,15 +42,25 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Migrations
                 {
                     b.OwnsMany("DeadFishStudio.Product.Domain.Model.ObjectOfValue.Price", "Prices", b1 =>
                         {
-                            b1.Property<Guid>("PDCT_SQ_PRODUCT");
+                            b1.Property<bool>("IsActive")
+                                .HasColumnName("PRCE_IN_ACTIVE");
 
                             b1.Property<decimal>("Amount")
                                 .HasColumnName("PRCE_AMOUNT");
 
+                            b1.Property<DateTime>("CreateDate")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnName("PRCE_DT_CREATED");
+
                             b1.Property<string>("Currency")
+                                .IsRequired()
                                 .HasColumnName("PRCE_CURRENCY");
 
-                            b1.HasKey("PDCT_SQ_PRODUCT");
+                            b1.Property<Guid>("PDCT_SQ_PRODUCT");
+
+                            b1.HasKey("IsActive");
+
+                            b1.HasIndex("PDCT_SQ_PRODUCT");
 
                             b1.ToTable("PRICE");
 

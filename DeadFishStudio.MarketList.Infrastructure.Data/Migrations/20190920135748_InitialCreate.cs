@@ -15,12 +15,12 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
                 schema: "deadfish",
                 columns: table => new
                 {
-                    MKLT_SQ_MARKET_LIST = table.Column<Guid>(nullable: false),
-                    MKLT_SQ_PRODUCT = table.Column<Guid>(nullable: false)
+                    MKLT_SQ_PRODUCT = table.Column<Guid>(nullable: false),
+                    MKLT_SQ_MARKET_LIST = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ITEMS", x => x.MKLT_SQ_MARKET_LIST);
+                    table.PrimaryKey("PK_ITEMS", x => x.MKLT_SQ_PRODUCT);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,8 +30,8 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
                 {
                     MKLT_SQ_MARKET_LIST = table.Column<Guid>(nullable: false),
                     MKLT_NM_MARKET_LIST = table.Column<string>(nullable: false),
-                    MKLT_DT_MARKET_LIST = table.Column<DateTime>(nullable: false),
-                    DataDeModificacao = table.Column<DateTime>(nullable: false)
+                    MKLT_DT_CREATION = table.Column<DateTime>(nullable: false),
+                    MKLT_DT_MODIFICATION = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

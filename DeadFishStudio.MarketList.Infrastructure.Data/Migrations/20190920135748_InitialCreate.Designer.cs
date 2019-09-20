@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MarketListContext))]
-    [Migration("20190920020357_Second")]
-    partial class Second
+    [Migration("20190920135748_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,9 +29,10 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
                         .HasColumnName("MKLT_SQ_MARKET_LIST");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnName("MKLT_DT_MARKET_LIST");
+                        .HasColumnName("MKLT_DT_CREATION");
 
-                    b.Property<DateTime>("DataDeModificacao");
+                    b.Property<DateTime>("DataDeModificacao")
+                        .HasColumnName("MKLT_DT_MODIFICATION");
 
                     b.Property<string>("Nome")
                         .IsRequired()
