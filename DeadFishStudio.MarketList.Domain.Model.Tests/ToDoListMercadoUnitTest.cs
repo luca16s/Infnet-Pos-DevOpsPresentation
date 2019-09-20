@@ -6,7 +6,6 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
 {
     public class ToDoListMercadoUnitTest
     {
-
         private readonly Entities.MarketList _listaMercado;
         private readonly MarketListProduct _itemMercado1;
         private readonly MarketListProduct _itemMercado2;
