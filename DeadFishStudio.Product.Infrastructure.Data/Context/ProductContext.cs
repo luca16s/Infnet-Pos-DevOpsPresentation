@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Data;
+using System.Threading;
 using System.Threading.Tasks;
 using DeadFishStudio.Product.Infrastructure.Data.Context.Configuration;
 using GianLuca.Domain.Core.Interfaces.UnitOfWork;
@@ -7,15 +9,23 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DeadFishStudio.Product.Infrastructure.Data.Context
 {
-    public class ProductContext: DbContext, IUnitOfWork
+    public sealed class ProductContext : DbContext, IUnitOfWork
     {
         public const string DefaultSchema = "deadfish";
+        private IDbContextTransaction _currentTransaction;
+        public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
+        public bool HasActiveTransaction => _currentTransaction != null;
+
+        public ProductContext()
+        {
+            Database.EnsureCreated();
+        }
 
         public ProductContext(DbContextOptions options) : base(options)
         {
         }
 
-        public virtual DbSet<Domain.Model.Entity.Product> ProductDbSet { get; set; }
+        public DbSet<Domain.Model.Entity.Product> ProductDbSet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,24 +35,62 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
             base.OnModelCreating(builder);
         }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            return await base.SaveChangesAsync(cancellationToken) > 0;
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            throw new System.NotImplementedException();
+            if (_currentTransaction != null) return null;
+
+            await Database.EnsureCreatedAsync();
+
+            _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+            return _currentTransaction;
         }
 
         public async Task CommitTransactionAsync(IDbContextTransaction transaction)
         {
-            throw new System.NotImplementedException();
+            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
+            if (transaction != _currentTransaction) throw new InvalidOperationException($"Transação {transaction.TransactionId} não é a atual.");
+
+            try
+            {
+                var isObjectSaved = await SaveEntitiesAsync();
+
+                if (isObjectSaved)
+                    transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
         }
 
         public void RollbackTransaction()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _currentTransaction?.Rollback();
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
         }
     }
 }

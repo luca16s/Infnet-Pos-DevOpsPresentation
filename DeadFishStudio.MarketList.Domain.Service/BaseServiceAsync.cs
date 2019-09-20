@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using GianLuca.Domain.Core.Entity;
 using GianLuca.Domain.Core.Interfaces.Repository;
+using GianLuca.Domain.Core.Interfaces.Services;
 
 namespace DeadFishStudio.MarketList.Domain.Service
 {
@@ -45,9 +44,5 @@ namespace DeadFishStudio.MarketList.Domain.Service
         {
             return _repositoryAsync.UpdateItem(id, item);
         }
-    }
-
-    public interface IBaseServiceAsync<T> where T : BaseEntity
-    {
     }
 }

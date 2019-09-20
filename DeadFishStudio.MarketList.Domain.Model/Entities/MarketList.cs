@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Entities
 {
-    public class MarketList<T> : BaseEntity where T : BaseEntity
+    public class MarketList : BaseEntity
     {
+        private DateTime? _dataDeCriacao;
+        private DateTime? _dataDeModificacao;
         private string _name = string.Empty;
+
         public string Nome
         {
             get => _name;
@@ -18,7 +20,6 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             }
         }
 
-        private DateTime? _dataDeCriacao;
         public DateTime DataDeCriacao
         {
             get => _dataDeCriacao ?? DateTime.Now;
@@ -30,81 +31,68 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             }
         }
 
-        private DateTime? _dataDeModificacao;
         public DateTime DataDeModificacao
         {
             get => _dataDeModificacao ?? DateTime.Now;
             set => _dataDeModificacao = DateTime.Now;
         }
 
-        public List<Items<T>> Items { get; } = new List<Items<T>>();
+        public Items<MarketListProduct> Items { get; } = new Items<MarketListProduct>();
 
-        public bool AdicionaItemALista(Items<T> items)
+        public bool AdicionaItemALista(MarketListProduct item)
         {
-            if (items is null)
+            if (item is null)
             {
-                AddNotification("items", "O items a ser inserido não pode ser nulo.");
-                return false;
-            }
-
-            if (items.Count <= 0)
-            {
-                AddNotification("Items", "A lista deve conter items para que o possa ser removido.");
+                AddNotification("item", "O item a ser inserido não pode ser nulo.");
                 return false;
             }
 
             if (Items is null)
             {
-                AddNotification("Items", "A lista de Items não pode ser nula.");
+                AddNotification("ItemsId", "A lista de ItemsId não pode ser nula.");
                 return false;
             }
 
-            if (Items.Contains(items))
+            if (Items.Contains(item))
             {
-                AddNotification("items", "Items a ser inserido já esta contido na lista");
+                AddNotification("item", "ItemsId a ser inserido já esta contido na lista");
                 return false;
             }
 
-            Items.Add(items);
+            Items.Add(item);
 
             return Items.Count > 0;
         }
 
-        public bool RemoveItemDaLista(Items<T> items)
+        public bool RemoveItemDaLista(MarketListProduct item)
         {
-            if (items is null)
+            if (item is null)
             {
-                AddNotification("items", "O item a ser removido nao pode ser nulo.");
-                return false;
-            }
-
-            if (items.Count <= 0)
-            {
-                AddNotification("Items", "A lista deve conter items para que o possa ser removido.");
+                AddNotification("item", "O item a ser removido nao pode ser nulo.");
                 return false;
             }
 
             if (Items is null)
             {
-                AddNotification("Items", "A lista de Items nao pode ser nula.");
+                AddNotification("ItemsId", "A lista de ItemsId nao pode ser nula.");
                 return false;
             }
 
             if (Items.Count <= 0)
             {
-                AddNotification("Items", "A lista deve conter items para que o possa ser removido.");
+                AddNotification("ItemsId", "A lista deve conter item para que o possa ser removido.");
                 return false;
             }
 
-            if (!Items.Contains(items))
+            if (!Items.Contains(item))
             {
-                AddNotification("Items", "A lista nao contém o elemento.");
+                AddNotification("ItemsId", "A lista nao contém o elemento.");
                 return false;
             }
 
-            Items.Remove(items);
+            Items.Remove(item);
 
-            return !Items.Contains(items);
+            return !Items.Contains(item);
         }
     }
 }

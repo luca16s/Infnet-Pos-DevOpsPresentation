@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Entities
 {
-    public class Items<T> : IList<T> where T : BaseEntity
+    public class Items<T> : IList<T>
     {
         private readonly IList<T> _listaItems = new List<T>();
 

@@ -2,20 +2,21 @@
 using DeadFishStudio.Product.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace DeadFishStudio.Product.Infrastructure.CrossCutting
-{internal static class CustomExtensionsMethods
+{
+    internal static class CustomExtensionsMethods
     {
-        public static IServiceCollection AddCustomDbContext(this IServiceCollection services, ProductConfiguration configuration)
+        public static IServiceCollection AddCustomDbContext(this IServiceCollection services,
+            ProductConfiguration configuration)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
-            services.AddEntityFrameworkMySQL()
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<ProductContext>(options =>
                 {
                     options
-                        .UseMySQL(configuration.ConnectionString);
+                        .UseSqlServer(configuration.ConnectionString);
                 });
 
             return services;

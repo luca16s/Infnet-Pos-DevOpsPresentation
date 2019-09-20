@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GianLuca.Domain.Core.Interfaces.Repository;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Interfaces.Repositories
 {
-    public interface IMarketListRepositoryAsync
+    public interface IMarketListRepositoryAsync : IBaseRepositoryAsync<Entities.MarketList>
     {
     }
 }

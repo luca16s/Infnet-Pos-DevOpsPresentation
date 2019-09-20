@@ -5,4 +5,13 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Domain.Service\DeadFishStudio.MarketList.Domain.Service.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Infrastructure.Data\DeadFishStudio.MarketList.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
 </Project>

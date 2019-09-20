@@ -11,13 +11,14 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
     public class BaseRepositoryAsync<T> : IBaseRepositoryAsync<T> where T : BaseEntity
     {
         protected ProductContext Context;
-        protected DbSet<T> DbSet { get; }
 
         public BaseRepositoryAsync(ProductContext productContext)
         {
             Context = productContext;
             DbSet = Context.Set<T>();
         }
+
+        protected DbSet<T> DbSet { get; }
 
         public async Task<T> AddItemAsync(T item)
         {
