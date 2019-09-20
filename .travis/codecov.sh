@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 curl -s https://codecov.io/bash > codecov
 chmod +x codecov
-./codecov -f "../DeadFishStudioMarketListDomainModel.xml" -t
+./codecov -f "../MarketListDomainModel.xml" -t
