@@ -17,14 +17,15 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../DeadFishStudio.Product.Application.Api"))
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environment}.json", true)
-                .AddEnvironmentVariables()
+                //.AddJsonFile($"appsettings.{environment}.json", true)
+                //.AddEnvironmentVariables()
                 .Build();
 
             // Get connection string
             var optionsBuilder = new DbContextOptionsBuilder<ProductContext>();
             var connectionString = config.GetConnectionString(nameof(ProductContext));
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(
+                @"Data Source=localhost;Initial Catalog=ProductApiDB;User ID=SA;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             return new ProductContext(optionsBuilder.Options);
         }
     }

@@ -15,17 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.Product.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.InfnetDevOps.Shared", "DeadFishStudio.InfnetDevOps.Shared\DeadFishStudio.InfnetDevOps.Shared.csproj", "{F86C38BC-5A00-4C09-9526-ABCB0055E278}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Domain.Model", "DeadFishStudio.MarketList.Domain.Model\DeadFishStudio.MarketList.Domain.Model.csproj", "{792369FF-5DCC-47D5-A2DB-64909047F236}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Domain.Model", "DeadFishStudio.MarketList.Domain.Model\DeadFishStudio.MarketList.Domain.Model.csproj", "{792369FF-5DCC-47D5-A2DB-64909047F236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Domain.Service", "DeadFishStudio.MarketList.Domain.Service\DeadFishStudio.MarketList.Domain.Service.csproj", "{E78CB646-D1E1-4F05-B2D4-3C382F75D000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Domain.Service", "DeadFishStudio.MarketList.Domain.Service\DeadFishStudio.MarketList.Domain.Service.csproj", "{E78CB646-D1E1-4F05-B2D4-3C382F75D000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Infrastructure.Data", "DeadFishStudio.MarketList.Infrastructure.Data\DeadFishStudio.MarketList.Infrastructure.Data.csproj", "{5659E2AB-6D72-42F4-8A73-981CB8AD0003}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Infrastructure.Data", "DeadFishStudio.MarketList.Infrastructure.Data\DeadFishStudio.MarketList.Infrastructure.Data.csproj", "{5659E2AB-6D72-42F4-8A73-981CB8AD0003}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Infrastructure.CrossCutting", "DeadFishStudio.MarketList.Infrastructure.CrossCutting\DeadFishStudio.MarketList.Infrastructure.CrossCutting.csproj", "{DD82776A-F64D-4EC3-9126-169DB74A73FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Infrastructure.CrossCutting", "DeadFishStudio.MarketList.Infrastructure.CrossCutting\DeadFishStudio.MarketList.Infrastructure.CrossCutting.csproj", "{DD82776A-F64D-4EC3-9126-169DB74A73FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Application.Api", "DeadFishStudio.MarketList.Application.Api\DeadFishStudio.MarketList.Application.Api.csproj", "{845C42C8-5E12-4ED8-9FA1-0374DA188C31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Application.Api", "DeadFishStudio.MarketList.Application.Api\DeadFishStudio.MarketList.Application.Api.csproj", "{845C42C8-5E12-4ED8-9FA1-0374DA188C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.MarketList.Domain.Model.Tests", "DeadFishStudio.MarketList.Domain.Model.Tests\DeadFishStudio.MarketList.Domain.Model.Tests.csproj", "{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Domain.Model.Tests", "DeadFishStudio.MarketList.Domain.Model.Tests\DeadFishStudio.MarketList.Domain.Model.Tests.csproj", "{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.InfnetDevOps.Presentation", "DeadFishStudio.InfnetDevOps.Presentation\DeadFishStudio.InfnetDevOps.Presentation.csproj", "{29AE9E9D-0CBF-4727-84C5-A0080901860C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.InfnetDevOps.ApiConnectionFactory", "DeadFishStudio.InfnetDevOps.ApiConnectionFactory\DeadFishStudio.InfnetDevOps.ApiConnectionFactory.csproj", "{560D996E-371E-47E3-82F6-DCDB3E53660A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,14 @@ Global
 		{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AE9E9D-0CBF-4727-84C5-A0080901860C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AE9E9D-0CBF-4727-84C5-A0080901860C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AE9E9D-0CBF-4727-84C5-A0080901860C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AE9E9D-0CBF-4727-84C5-A0080901860C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

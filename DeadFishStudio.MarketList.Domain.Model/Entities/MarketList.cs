@@ -1,11 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Entities
 {
     public class MarketList : BaseEntity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MarketList"/> class.
+        /// Constructor for EFCore.
+        /// </summary>
+        public MarketList()
+        {
+        }
+
         private DateTime? _dataDeCriacao;
         private DateTime? _dataDeModificacao;
         private string _name = string.Empty;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DeadFishStudio.MarketList.Domain.Model;
-using DeadFishStudio.MarketList.Domain.Model.Entities;
-using GianLuca.Domain.Core.Entity;
+﻿using DeadFishStudio.MarketList.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

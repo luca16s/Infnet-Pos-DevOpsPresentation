@@ -16,6 +16,7 @@ namespace DeadFishStudio.Product.Infrastructure.CrossCutting
                 .AddDbContext<ProductContext>(options =>
                 {
                     options
+                        .UseLazyLoadingProxies()
                         .UseSqlServer(configuration.ConnectionString);
                 });
 

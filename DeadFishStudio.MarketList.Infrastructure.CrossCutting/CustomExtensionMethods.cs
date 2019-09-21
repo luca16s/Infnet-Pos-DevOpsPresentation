@@ -16,6 +16,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.CrossCutting
                 .AddDbContext<MarketListContext>(options =>
                 {
                     options
+                        .UseLazyLoadingProxies()
                         .UseSqlServer(configuration.ConnectionString);
                 });
 

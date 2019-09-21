@@ -4,9 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels;
 using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
 using DeadFishStudio.Product.Domain.Model.Interfaces.Services;
+using DeadFishStudio.Product.Infrastructure.Data.Context;
+using GianLuca.Domain.Core.Interfaces.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeadFishStudio.Product.Application.Api.Controllers
 {
@@ -16,17 +20,19 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IProductServiceAsync _productServiceAsync;
 
-        public ProductsController(IProductServiceAsync productServiceAsync, IMapper mapper)
+        public ProductsController(IUnitOfWork context, IProductServiceAsync productServiceAsync, IMapper mapper)
         {
+            _unitOfWork = context;
             _productServiceAsync = productServiceAsync;
             _mapper = mapper;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProductViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> Get()
         {
             var result = await _productServiceAsync.GetAllItemsAsync();
@@ -45,8 +51,8 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "Get")]
-        [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProductViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> Get(Guid id)
         {
             var products = await _productServiceAsync.GetItemAsync(id);
@@ -63,37 +69,68 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.UnprocessableEntity)]
+        [ProducesResponseType(typeof(ProductViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
         public async Task<ActionResult> Post([FromBody] ProductViewModel item)
         {
-            var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
+            {
+                try
+                {
+                    var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
 
-            if (product is null)
-                return UnprocessableEntity();
+                    if (product is null)
+                        return UnprocessableEntity();
 
-            await _productServiceAsync.AddItemAsync(product);
+                    await _productServiceAsync.AddItemAsync(product);
+                    var a = await _unitOfWork.SaveEntitiesAsync();
+                    await _unitOfWork.CommitTransactionAsync(transaction);
+                }
+                catch (Exception ex)
+                {
+                    _unitOfWork.RollbackTransaction();
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    _unitOfWork.Dispose();
+                }
+            }
 
-            return Ok(_mapper.Map<Domain.Model.Entity.Product, ProductViewModel>(
-                await _productServiceAsync.GetItemAsync(product.Id)));
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(ProductViewModel), (int) HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.UnprocessableEntity)]
-        public IActionResult Put(Guid id, [FromBody] ProductViewModel item)
+        [ProducesResponseType(typeof(ProductViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+        public async Task<IActionResult> Put(Guid id, [FromBody] ProductViewModel item)
         {
             if (id == Guid.Empty)
                 return ValidationProblem();
 
-            var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
+            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            {
+                try
+                {
+                    var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
 
-            if (product is null)
-                return UnprocessableEntity();
+                    if (product is null)
+                        return UnprocessableEntity();
 
-            var updatedProduct = _productServiceAsync.UpdateItem(id, product);
-
-            return Ok(_mapper.Map<Domain.Model.Entity.Product, ProductViewModel>(updatedProduct));
+                    var updatedProduct = _productServiceAsync.UpdateItem(id, product);
+                    await _unitOfWork.CommitTransactionAsync(transaction.Result);
+                    return Ok(_mapper.Map<Domain.Model.Entity.Product, ProductViewModel>(updatedProduct));
+                }
+                catch (Exception ex)
+                {
+                    _unitOfWork.RollbackTransaction();
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    _unitOfWork.Dispose();
+                }
+            }
         }
 
         [HttpDelete("{id}")]
@@ -102,18 +139,40 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
             if (item.Id == Guid.Empty)
                 return ValidationProblem();
 
-            var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
+            {
+                try
+                {
+                    var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
 
-            if (product is null)
-                return UnprocessableEntity();
+                    if (product is null)
+                        return UnprocessableEntity();
 
-            _productServiceAsync.DeleteItem(product);
+                    _productServiceAsync.DeleteItem(product);
+                    await _unitOfWork.SaveEntitiesAsync();
+                    await _unitOfWork.CommitTransactionAsync(transaction);
 
-            if (_mapper.Map<Domain.Model.Entity.Product, ProductViewModel>(
-                await _productServiceAsync.GetItemAsync(product.Id)) is null)
-                return Ok();
+                    if (await ProductExistsAsync(item.Id))
+                        return Ok();
+                }
+                catch (Exception ex)
+                {
+                    _unitOfWork.RollbackTransaction();
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    _unitOfWork.Dispose();
+                }
+            }
 
             return BadRequest();
+        }
+
+        private async Task<bool> ProductExistsAsync(Guid id)
+        {
+            var result = await _productServiceAsync.GetAllItemsAsync();
+            return result.ToList().Any(e => e.Id == id);
         }
     }
 }

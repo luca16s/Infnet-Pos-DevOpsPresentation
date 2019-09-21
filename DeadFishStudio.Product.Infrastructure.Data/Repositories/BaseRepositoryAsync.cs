@@ -11,6 +11,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
     public class BaseRepositoryAsync<T> : IBaseRepositoryAsync<T> where T : BaseEntity
     {
         protected ProductContext Context;
+        protected DbSet<T> DbSet { get; }
 
         public BaseRepositoryAsync(ProductContext productContext)
         {
@@ -18,14 +19,13 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
             DbSet = Context.Set<T>();
         }
 
-        protected DbSet<T> DbSet { get; }
-
         public async Task<T> AddItemAsync(T item)
         {
             try
             {
                 var entity = await DbSet.AddAsync(item);
                 entity.State = EntityState.Added;
+                await Context.SaveEntitiesAsync();
                 return entity.Entity;
             }
             catch (DbUpdateException e)
@@ -48,12 +48,14 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
         {
             var entry = DbSet.Update(item);
             entry.State = EntityState.Modified;
+            Context.SaveChanges();
             return entry.Entity;
         }
 
         public void DeleteItem(T item)
         {
             DbSet.Remove(item);
+            Context.SaveChanges();
         }
     }
 }
