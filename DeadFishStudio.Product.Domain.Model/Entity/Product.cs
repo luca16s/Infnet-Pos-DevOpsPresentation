@@ -17,7 +17,6 @@ namespace DeadFishStudio.Product.Domain.Model.Entity
         {
 
         }
-
         public string Name { get; set; }
         public int Quantity { get; set; }
         public virtual List<Price> Prices { get; set; }

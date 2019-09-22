@@ -46,6 +46,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Repositories
 
         public T UpdateItem(Guid id, T item)
         {
+            DbSet.Local.Add(item);
             var entry = DbSet.Update(item);
             entry.State = EntityState.Modified;
             Context.SaveChanges();

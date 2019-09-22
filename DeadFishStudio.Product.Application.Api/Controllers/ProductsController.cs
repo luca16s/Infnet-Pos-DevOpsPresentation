@@ -134,16 +134,16 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromBody] ProductViewModel item)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            if (item.Id == Guid.Empty)
+            if (id == Guid.Empty)
                 return ValidationProblem();
 
             using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
-                    var product = _mapper.Map<ProductViewModel, Domain.Model.Entity.Product>(item);
+                    var product = await _productServiceAsync.GetItemAsync(id);
 
                     if (product is null)
                         return UnprocessableEntity();
@@ -152,7 +152,7 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
                     await _unitOfWork.SaveEntitiesAsync();
                     await _unitOfWork.CommitTransactionAsync(transaction);
 
-                    if (await ProductExistsAsync(item.Id))
+                    if (await ProductExistsAsync(id))
                         return Ok();
                 }
                 catch (Exception ex)
