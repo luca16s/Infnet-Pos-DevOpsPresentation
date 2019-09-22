@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using AutoMapper;
+﻿using AutoMapper;
 using DeadFishStudio.Product.Infrastructure.CrossCutting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +10,14 @@ namespace DeadFishStudio.Product.Application.Api
 {
     public class Startup
     {
+        public Startup(IHostingEnvironment hostingEnvironment)
+        {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appSettings.json")
+                .Build();
+        }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,18 +28,18 @@ namespace DeadFishStudio.Product.Application.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            //var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environment}.json", true)
-                .AddEnvironmentVariables()
-                .Build();
+            //IConfiguration config = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json", false, true)
+            //    //.AddJsonFile($"appsettings.{environment}.json", true)
+            //    //.AddEnvironmentVariables()
+            //    .Build();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<ProductConfiguration>(Configuration.GetSection(nameof(ProductConfiguration)));
-            Injection.Services(services, config);
+            Injection.Services(services, Configuration);
             services.AddAutoMapper(typeof(Startup));
         }
 

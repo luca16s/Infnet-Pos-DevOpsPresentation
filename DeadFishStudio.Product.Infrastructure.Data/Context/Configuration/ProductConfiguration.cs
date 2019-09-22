@@ -35,7 +35,8 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context.Configuration
                     price.HasForeignKey("PDCT_SQ_PRODUCT");
                     price.HasKey(p => new
                     {
-                        p.IsActive
+                        p.IsActive,
+                        p.CreateDate
                     });
                 });
 

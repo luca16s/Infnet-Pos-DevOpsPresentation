@@ -9,23 +9,22 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DeadFishStudio.Product.Infrastructure.Data.Context
 {
-    public sealed class ProductContext : DbContext, IUnitOfWork
+    public class ProductContext : DbContext, IUnitOfWork
     {
         public const string DefaultSchema = "deadfish";
         private IDbContextTransaction _currentTransaction;
+
+        public DbSet<Domain.Model.Entity.Product> Product { get; set; }
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
         public bool HasActiveTransaction => _currentTransaction != null;
-
-        public ProductContext()
-        {
-            Database.EnsureCreated();
-        }
 
         public ProductContext(DbContextOptions options) : base(options)
         {
         }
 
-        public DbSet<Domain.Model.Entity.Product> ProductDbSet { get; set; }
+        public ProductContext()
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,7 +36,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
-            return await base.SaveChangesAsync(cancellationToken) > 0;
+            return (await SaveChangesAsync(cancellationToken)) > 0;
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()
@@ -57,9 +56,9 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
 
             try
             {
-                var isObjectSaved = await SaveEntitiesAsync();
+                var isObjectSavedAsync = await SaveEntitiesAsync();
 
-                if (isObjectSaved)
+                if (isObjectSavedAsync)
                     transaction.Commit();
             }
             catch (Exception ex)

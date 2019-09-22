@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DeadFishStudio.MarketList.Domain.Model;
-using DeadFishStudio.MarketList.Domain.Model.Entities;
-using GianLuca.Domain.Core.Entity;
+﻿using DeadFishStudio.MarketList.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,7 +20,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations
                 .HasColumnName("MKLT_SQ_MARKET_LIST");
 
             builder
-                .Property(ml => ml.Nome)
+                .Property(ml => ml.Name)
                 .IsRequired()
                 .HasColumnName("MKLT_NM_MARKET_LIST");
 

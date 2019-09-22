@@ -2,7 +2,6 @@
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using DeadFishStudio.MarketList.Domain.Model;
 using DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations;
 using GianLuca.Domain.Core.Interfaces.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 {
-    public sealed class MarketListContext : DbContext, IUnitOfWork
+    public class MarketListContext : DbContext, IUnitOfWork
     {
         public const string DefaultSchema = "deadfish";
         private IDbContextTransaction _currentTransaction;
@@ -26,7 +25,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
         {
         }
 
-        public DbSet<Domain.Model.Entities.MarketList> MarketListDbSet { get; set; }
+        public DbSet<Domain.Model.Entities.MarketList> MarketList { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -26,6 +26,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Repositories
             {
                 var entity = await DbSet.AddAsync(item);
                 entity.State = EntityState.Added;
+                await Context.SaveEntitiesAsync();
                 return entity.Entity;
             }
             catch (DbUpdateException e)
@@ -46,14 +47,17 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Repositories
 
         public T UpdateItem(Guid id, T item)
         {
+            DbSet.Local.Add(item);
             var entry = DbSet.Update(item);
             entry.State = EntityState.Modified;
+            Context.SaveChanges();
             return entry.Entity;
         }
 
         public void DeleteItem(T item)
         {
             DbSet.Remove(item);
+            Context.SaveChanges();
         }
     }
 }

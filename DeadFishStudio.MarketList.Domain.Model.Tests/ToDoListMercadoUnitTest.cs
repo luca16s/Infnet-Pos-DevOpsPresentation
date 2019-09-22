@@ -86,25 +86,25 @@ namespace DeadFishStudio.MarketList.Domain.Model.Tests
         public void AdicionaNomeCorretoNaLista()
         {
             var nome = "Mercado";
-            _listaMercado.Nome = nome;
+            _listaMercado.Name = nome;
 
-            Assert.Equal(nome, _listaMercado.Nome);
+            Assert.Equal(nome, _listaMercado.Name);
         }
 
         [Fact]
         public void AdicionaNomeEmBrancoNaLista()
         {
-            _listaMercado.Nome = string.Empty;
+            _listaMercado.Name = string.Empty;
 
-            Assert.Equal(string.Empty, _listaMercado.Nome);
+            Assert.Equal(string.Empty, _listaMercado.Name);
         }
 
         [Fact]
         public void AdicionaNomeNuloALista()
         {
-            _listaMercado.Nome = null;
+            _listaMercado.Name = null;
 
-            Assert.Equal(string.Empty, _listaMercado.Nome);
+            Assert.Equal(string.Empty, _listaMercado.Name);
         }
 
         [Fact]

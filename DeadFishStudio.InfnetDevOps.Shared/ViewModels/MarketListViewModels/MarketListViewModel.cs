@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
 
 namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels
 {
@@ -15,14 +13,14 @@ namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels
 
         [Display(Name = "Data de Criacao")]
         [DataType(DataType.Date)]
-        [Editable(false)]
+        [Editable(true)]
         public DateTime DataDeCriacao { get; set; }
 
         [Display(Name = "Data de Modificacao")]
         [DataType(DataType.Date)]
-        [Editable(false)]
+        [Editable(true)]
         public DateTime DataDeModificacao { get; set; }
 
-        public List<ItemViewModel<ProductViewModel>> ItemViewModels { get; set; }
+        public ItemViewModel<MarketListProductViewModel> ItemViewModels { get; set; }
     }
 }
