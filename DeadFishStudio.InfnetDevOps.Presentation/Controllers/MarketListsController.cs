@@ -1,28 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using DeadFishStudio.InfnetDevOps.Presentation.Configuration;
+using DeadFishStudio.InfnetDevOps.Presentation.Models;
+using DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels;
+using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
+using DeadFishStudio.MarketList.Application.Api.Mappings;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DeadFishStudio.MarketList.Domain.Model.Entities;
-using DeadFishStudio.MarketList.Infrastructure.Data.Context;
+using Newtonsoft.Json;
 
 namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 {
     public class MarketListsController : Controller
     {
-        private readonly MarketListContext _context;
+        private readonly HttpClient _client;
+        private const string ApiRequestUri = "api/MarketLists";
+        ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
+        public const string ApplicationJson = "application/json";
 
-        public MarketListsController(MarketListContext context)
+        public MarketListsController(IHttpClientFactory httpClientFactory)
         {
-            _context = context;
+            _client  = httpClientFactory.CreateClient(nameof(MarketListApiConfiguration));
         }
 
         // GET: MarketLists
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MarketList.ToListAsync());
+            string result;
+            try
+            {
+                result = await _client.GetStringAsync(ApiRequestUri);
+            }
+            catch (Exception)
+            {
+                return View(new List<MarketListViewModel>());
+            }
+
+            return View(JsonConvert.DeserializeObject<List<MarketListViewModel>>(result));
         }
 
         // GET: MarketLists/Details/5
@@ -33,14 +51,14 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketList = await _context.MarketList
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (marketList == null)
+            var marketListViewModel = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
+
+            if (marketListViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(marketList);
+            return View(marketListViewModel);
         }
 
         // GET: MarketLists/Create
@@ -54,16 +72,34 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,DataDeCriacao,DataDeModificacao,Id")] MarketList.Domain.Model.Entities.MarketList marketList)
+        public async Task<IActionResult> Create([Bind("Name,DataDeCriacao,DataDeModificacao")] MarketListViewModel marketList)
         {
-            if (ModelState.IsValid)
+            marketList.Id = Guid.NewGuid();
+            marketList.Name = "A";
+            marketList.DataDeCriacao = DateTime.Now;
+            marketList.DataDeModificacao = DateTime.Now;
+            marketList.ItemViewModels = new List<MarketListProductViewModel>
             {
-                //marketList.Id = Guid.NewGuid();
-                _context.Add(marketList);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(marketList);
+                new MarketListProductViewModel()
+                {
+                    ProductId = Guid.NewGuid(),
+                    Name = "Bolo de Noz",
+                    Quantity = 1,
+                    Price = 10
+                }
+            };
+
+            //if (!ModelState.IsValid) return View(product);
+
+            var serializedObject = JsonConvert.SerializeObject(marketList);
+            //var buffer = System.Text.Encoding.UTF8.GetBytes(serializeObject);
+            //var byteContent = new ByteArrayContent(buffer);
+            //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            //var content = new Form
+
+            await _client.PostAsync(ApiRequestUri, new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: MarketLists/Edit/5
@@ -74,7 +110,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketList = await _context.MarketList.FindAsync(id);
+            var marketList = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
             if (marketList == null)
             {
                 return NotFound();
@@ -87,33 +123,34 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,DataDeCriacao,DataDeModificacao,Id")] MarketList.Domain.Model.Entities.MarketList marketList)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,DataDeCriacao,DataDeModificacao,Id")] MarketListViewModel marketList)
         {
             if (id != marketList.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            try
             {
-                try
-                {
-                    _context.Update(marketList);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MarketListExists(marketList.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var serializedObject = JsonConvert.SerializeObject(marketList);
+
+                await _client.PutAsync($"{ApiRequestUri}{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await MarketListExists(marketList.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+            //}
             return View(marketList);
         }
 
@@ -125,14 +162,13 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketList = await _context.MarketList
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var marketList = await _client.GetStringAsync($"{ApiRequestUri}{id}");
             if (marketList == null)
             {
                 return NotFound();
             }
 
-            return View(marketList);
+            return View(JsonConvert.DeserializeObject<MarketListViewModel>(marketList));
         }
 
         // POST: MarketLists/Delete/5
@@ -140,15 +176,14 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var marketList = await _context.MarketList.FindAsync(id);
-            _context.MarketList.Remove(marketList);
-            await _context.SaveChangesAsync();
+            await _client.DeleteAsync($"{ApiRequestUri}{id}");
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MarketListExists(Guid id)
+        private async Task<bool> MarketListExists(Guid id)
         {
-            return _context.MarketList.Any(e => e.Id == id);
+            var result = JsonConvert.DeserializeObject<List<MarketListViewModel>>(await _client.GetStringAsync(ApiRequestUri));
+            return result.Any(e => e.Id == id);
         }
     }
 }

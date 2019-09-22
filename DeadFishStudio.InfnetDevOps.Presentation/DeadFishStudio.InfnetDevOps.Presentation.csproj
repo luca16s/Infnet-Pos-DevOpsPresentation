@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DeadFishStudio.InfnetDevOps.ApiConnectionFactory\DeadFishStudio.InfnetDevOps.ApiConnectionFactory.csproj" />
     <ProjectReference Include="..\DeadFishStudio.InfnetDevOps.Shared\DeadFishStudio.InfnetDevOps.Shared.csproj" />
+    <ProjectReference Include="..\DeadFishStudio.MarketList.Application.Api\DeadFishStudio.MarketList.Application.Api.csproj" />
     <ProjectReference Include="..\DeadFishStudio.MarketList.Domain.Model\DeadFishStudio.MarketList.Domain.Model.csproj" />
     <ProjectReference Include="..\DeadFishStudio.MarketList.Infrastructure.Data\DeadFishStudio.MarketList.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\DeadFishStudio.Product.Domain.Model\DeadFishStudio.Product.Domain.Model.csproj" />

@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace DeadFishStudio.MarketList.Domain.Model.Entities
+﻿namespace DeadFishStudio.MarketList.Domain.Model.Entities
 {
+    using System.Collections;
+    using System.Collections.Generic;
+
     public class Items<T> : IList<T>
     {
         private readonly IList<T> _listaItems = new List<T>();

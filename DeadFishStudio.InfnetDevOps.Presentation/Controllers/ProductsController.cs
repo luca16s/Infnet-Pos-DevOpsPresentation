@@ -5,12 +5,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using DeadFishStudio.InfnetDevOps.Presentation.Configuration;
 using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DeadFishStudio.Product.Domain.Model.Entity;
-using DeadFishStudio.Product.Infrastructure.Data.Context;
 using Newtonsoft.Json;
 
 namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
@@ -18,16 +16,27 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class ProductsController : Controller
     {
         private readonly HttpClient _client;
+        private const string ApiRequestUri = "api/Products/";
+        ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
+        public const string ApplicationJson = "application/json";
 
         public ProductsController(IHttpClientFactory httpClientFactory)
         {
-            _client  = httpClientFactory.CreateClient("B");
+            _client  = httpClientFactory.CreateClient(nameof(ProductApiConfiguration));
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var result = await _client.GetStringAsync("api/Products/");
+            string result;
+            try
+            {
+                result = await _client.GetStringAsync(ApiRequestUri);
+            }
+            catch (Exception )
+            {
+                return View();
+            }
             return View(JsonConvert.DeserializeObject<List<ProductViewModel>>(result));
         }
 
@@ -39,7 +48,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"api/Products/{id}"));
+            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
 
             if (product == null)
             {
@@ -83,7 +92,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 
             //var content = new Form
 
-            await _client.PostAsync("api/Products/", new StringContent(serializedObject, Encoding.UTF8, "application/json"));
+            await _client.PostAsync(ApiRequestUri, new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
             return RedirectToAction(nameof(Index));
         }
 
@@ -95,7 +104,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"api/Products/{id}"));
+            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
             if (product == null)
             {
                 return NotFound();
@@ -132,7 +141,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 {
                     var serializedObject = JsonConvert.SerializeObject(product);
 
-                    await _client.PutAsync($"api/Products/{id}", new StringContent(serializedObject, Encoding.UTF8,"application/json"));
+                    await _client.PutAsync($"{ApiRequestUri}{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -158,7 +167,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = await _client.GetStringAsync($"api/Products/{id}");
+            var product = await _client.GetStringAsync($"{ApiRequestUri}{id}");
             if (product == null)
             {
                 return NotFound();
@@ -172,20 +181,20 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var product = await _client.GetStringAsync($"api/Products/{id}");
+            var product = await _client.GetStringAsync($"{ApiRequestUri}{id}");
             var serializeObject = JsonConvert.SerializeObject(product);
             var buffer = System.Text.Encoding.UTF8.GetBytes(serializeObject);
             var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue(ApplicationJson);
 
-            await _client.DeleteAsync($"api/Products/{id}");
+            await _client.DeleteAsync($"{ApiRequestUri}{id}");
 
             return RedirectToAction(nameof(Index));
         }
 
         private async Task<bool> ProductExists(Guid id)
         {
-            var result = JsonConvert.DeserializeObject<List<ProductViewModel>>(await _client.GetStringAsync($"api/Products/"));
+            var result = JsonConvert.DeserializeObject<List<ProductViewModel>>(await _client.GetStringAsync(ApiRequestUri));
             return result.Any(e => e.Id == id);
         }
     }

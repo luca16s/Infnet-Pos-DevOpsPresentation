@@ -4,13 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
-using DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels;
 using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
 using DeadFishStudio.Product.Domain.Model.Interfaces.Services;
-using DeadFishStudio.Product.Infrastructure.Data.Context;
 using GianLuca.Domain.Core.Interfaces.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DeadFishStudio.Product.Application.Api.Controllers
 {

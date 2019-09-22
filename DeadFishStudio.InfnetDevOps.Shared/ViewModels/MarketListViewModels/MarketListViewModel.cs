@@ -16,13 +16,15 @@ namespace DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels
         [Display(Name = "Data de Criacao")]
         [DataType(DataType.Date)]
         [Editable(false)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataDeCriacao { get; set; }
 
         [Display(Name = "Data de Modificacao")]
         [DataType(DataType.Date)]
         [Editable(false)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataDeModificacao { get; set; }
 
-        public List<ItemViewModel<ProductViewModel>> ItemViewModels { get; set; }
+        public List<MarketListProductViewModel> ItemViewModels { get; set; }
     }
 }

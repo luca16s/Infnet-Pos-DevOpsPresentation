@@ -35,21 +35,15 @@ namespace DeadFishStudio.InfnetDevOps.Presentation
             Configuration.GetSection(nameof(ProductApiConfiguration)).Bind(productListApi);
 
 
-            services.AddHttpClient("A", client =>
+            services.AddHttpClient(nameof(MarketListApiConfiguration), client =>
             {
                 client.BaseAddress = marketListApi.Url;
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
-            services.AddHttpClient("B", client =>
+            services.AddHttpClient(nameof(ProductApiConfiguration), client =>
             {
                 client.BaseAddress = productListApi.Url;
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-            });
-
-            services.AddHttpClient("C", client =>
-            {
-                client.BaseAddress = new Uri("https://swapi.co/api/");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
