@@ -5,10 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DeadFishStudio.InfnetDevOps.Presentation.Configuration;
-using DeadFishStudio.InfnetDevOps.Presentation.Models;
 using DeadFishStudio.InfnetDevOps.Shared.ViewModels.MarketListViewModels;
-using DeadFishStudio.InfnetDevOps.Shared.ViewModels.ProductViewModels;
-using DeadFishStudio.MarketList.Application.Api.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -18,7 +15,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class MarketListsController : Controller
     {
         private readonly HttpClient _client;
-        private const string ApiRequestUri = "api/MarketLists";
+        private const string ApiRequestUri = "api/MarketLists/";
         ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
         public const string ApplicationJson = "application/json";
 
@@ -72,13 +69,14 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,DataDeCriacao,DataDeModificacao")] MarketListViewModel marketList)
+        public async Task<IActionResult> Create([FromForm] MarketListViewModel marketList)
         {
+            //[Bind("Name,DataDeCriacao,DataDeModificacao")]
             marketList.Id = Guid.NewGuid();
             marketList.Name = "A";
             marketList.DataDeCriacao = DateTime.Now;
             marketList.DataDeModificacao = DateTime.Now;
-            marketList.ItemViewModels = new List<MarketListProductViewModel>
+            marketList.ItemViewModels = new ItemViewModel<MarketListProductViewModel>
             {
                 new MarketListProductViewModel()
                 {
@@ -123,12 +121,23 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,DataDeCriacao,DataDeModificacao,Id")] MarketListViewModel marketList)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,DataDeCriacao,DataDeModificacao,Id")] MarketListViewModel marketList)
         {
             if (id != marketList.Id)
             {
                 return NotFound();
             }
+
+            marketList.ItemViewModels = new ItemViewModel<MarketListProductViewModel>
+            {
+                new MarketListProductViewModel()
+                {
+                    ProductId = Guid.NewGuid(),
+                    Name = "Bolo de Noz",
+                    Quantity = 1,
+                    Price = 10
+                }
+            };
 
             //if (ModelState.IsValid)
             //{

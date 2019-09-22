@@ -1,5 +1,4 @@
-﻿using System;
-using DeadFishStudio.InfnetDevOps.Presentation.Configuration;
+﻿using DeadFishStudio.InfnetDevOps.Presentation.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

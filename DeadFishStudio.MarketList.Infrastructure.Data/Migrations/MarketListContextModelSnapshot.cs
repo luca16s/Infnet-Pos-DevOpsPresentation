@@ -31,7 +31,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Migrations
                     b.Property<DateTime>("DataDeModificacao")
                         .HasColumnName("MKLT_DT_MODIFICATION");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("MKLT_NM_MARKET_LIST");
 

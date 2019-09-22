@@ -20,7 +20,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context.Configurations
                 .HasColumnName("MKLT_SQ_MARKET_LIST");
 
             builder
-                .Property(ml => ml.Nome)
+                .Property(ml => ml.Name)
                 .IsRequired()
                 .HasColumnName("MKLT_NM_MARKET_LIST");
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using GianLuca.Domain.Core.Entity;
 
 namespace DeadFishStudio.MarketList.Domain.Model.Entities
@@ -18,7 +17,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
         private DateTime? _dataDeModificacao;
         private string _name = string.Empty;
 
-        public string Nome
+        public string Name
         {
             get => _name;
             set
@@ -45,7 +44,7 @@ namespace DeadFishStudio.MarketList.Domain.Model.Entities
             set => _dataDeModificacao = DateTime.Now;
         }
 
-        public List<MarketListProduct> Items { get; } = new List<MarketListProduct>();
+        public Items<MarketListProduct> Items { get; } = new Items<MarketListProduct>();
 
         public bool AdicionaItemALista(MarketListProduct item)
         {
