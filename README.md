@@ -4,7 +4,7 @@
 
 |CodeFactor|CodeCov|TravisCI|ASP.NET Core CI|
 |----------|-------|--------|---------------|
-|[![CodeFactor](https://www.codefactor.io/repository/github/luca16s/infnet-pos-devopspresentation/badge)](https://www.codefactor.io/repository/github/luca16s/infnet-pos-devopspresentation)|[![codecov](https://codecov.io/gh/luca16s/Infnet-Pos-DevOpsPresentation/branch/master/graph/badge.svg)](https://codecov.io/gh/luca16s/Infnet-Pos-DevOpsPresentation)|[![Build Status](https://travis-ci.org/luca16s/Infnet-Pos-DevOpsPresentation.svg?branch=master)](https://travis-ci.org/luca16s/Infnet-Pos-DevOpsPresentation)|[ASPNET Core CI](https://www.github.com/luca16s/Infnet-Pos-DevOpsPresentation/workflows/ASP.NET%20Core%20CI/badge.svg)|
+|[![CodeFactor](https://www.codefactor.io/repository/github/luca16s/infnet-pos-devopspresentation/badge)](https://www.codefactor.io/repository/github/luca16s/infnet-pos-devopspresentation)|[![codecov](https://codecov.io/gh/luca16s/Infnet-Pos-DevOpsPresentation/branch/master/graph/badge.svg)](https://codecov.io/gh/luca16s/Infnet-Pos-DevOpsPresentation)|[![Build Status](https://travis-ci.org/luca16s/Infnet-Pos-DevOpsPresentation.svg?branch=master)](https://travis-ci.org/luca16s/Infnet-Pos-DevOpsPresentation)|![](https://www.github.com/luca16s/Infnet-Pos-DevOpsPresentation/workflows/ASP.NET%20Core%20CI/badge.svg)|
 
 
 # Infnet-Pos-DevOpsPresentation
