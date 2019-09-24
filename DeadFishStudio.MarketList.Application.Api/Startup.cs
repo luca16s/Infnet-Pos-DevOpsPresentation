@@ -22,13 +22,13 @@ namespace DeadFishStudio.MarketList.Application.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            //var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
                 //.AddJsonFile($"appsettings.{environment}.json", true)
-                .AddEnvironmentVariables()
+                //.AddEnvironmentVariables()
                 .Build();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

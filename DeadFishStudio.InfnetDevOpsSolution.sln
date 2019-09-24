@@ -27,9 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.MarketList.Domain.Model.Tests", "DeadFishStudio.MarketList.Domain.Model.Tests\DeadFishStudio.MarketList.Domain.Model.Tests.csproj", "{32AE8658-AA9F-4C0D-A8EA-793C5DC4E46A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.InfnetDevOps.Presentation", "DeadFishStudio.InfnetDevOps.Presentation\DeadFishStudio.InfnetDevOps.Presentation.csproj", "{29AE9E9D-0CBF-4727-84C5-A0080901860C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.InfnetDevOps.Presentation", "DeadFishStudio.InfnetDevOps.Presentation\DeadFishStudio.InfnetDevOps.Presentation.csproj", "{29AE9E9D-0CBF-4727-84C5-A0080901860C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadFishStudio.InfnetDevOps.ApiConnectionFactory", "DeadFishStudio.InfnetDevOps.ApiConnectionFactory\DeadFishStudio.InfnetDevOps.ApiConnectionFactory.csproj", "{560D996E-371E-47E3-82F6-DCDB3E53660A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeadFishStudio.InfnetDevOps.ApiConnectionFactory", "DeadFishStudio.InfnetDevOps.ApiConnectionFactory\DeadFishStudio.InfnetDevOps.ApiConnectionFactory.csproj", "{560D996E-371E-47E3-82F6-DCDB3E53660A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{23591297-4333-4B3A-8551-5CF5BE2D2BA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{560D996E-371E-47E3-82F6-DCDB3E53660A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23591297-4333-4B3A-8551-5CF5BE2D2BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23591297-4333-4B3A-8551-5CF5BE2D2BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23591297-4333-4B3A-8551-5CF5BE2D2BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23591297-4333-4B3A-8551-5CF5BE2D2BA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

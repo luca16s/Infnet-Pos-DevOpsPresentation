@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.IO;
+using AutoMapper;
 using DeadFishStudio.Product.Infrastructure.CrossCutting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,14 +12,6 @@ namespace DeadFishStudio.Product.Application.Api
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment hostingEnvironment)
-        {
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(hostingEnvironment.ContentRootPath)
-                .AddJsonFile("appSettings.json")
-                .Build();
-        }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,12 +24,12 @@ namespace DeadFishStudio.Product.Application.Api
         {
             //var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            //IConfiguration config = new ConfigurationBuilder()
-            //    .SetBasePath(Directory.GetCurrentDirectory())
-            //    .AddJsonFile("appsettings.json", false, true)
-            //    //.AddJsonFile($"appsettings.{environment}.json", true)
-            //    //.AddEnvironmentVariables()
-            //    .Build();
+            IConfiguration config = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json", false, true)
+               //.AddJsonFile(path: $"appsettings.{environment}.json", optional: true)
+               //.AddEnvironmentVariables()
+               .Build();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<ProductConfiguration>(Configuration.GetSection(nameof(ProductConfiguration)));
