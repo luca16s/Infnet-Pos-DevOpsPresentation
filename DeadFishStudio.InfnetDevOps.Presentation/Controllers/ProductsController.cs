@@ -35,7 +35,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
             }
             catch (Exception )
             {
-                return View();
+                return View(new List<ProductViewModel>());
             }
             return View(JsonConvert.DeserializeObject<List<ProductViewModel>>(result));
         }
