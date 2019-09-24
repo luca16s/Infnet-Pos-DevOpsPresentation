@@ -18,7 +18,6 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 
         public MarketListContext()
         {
-            Database.EnsureCreated();
         }
 
         public MarketListContext(DbContextOptions options) : base(options)

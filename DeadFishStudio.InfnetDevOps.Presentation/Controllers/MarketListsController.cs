@@ -15,7 +15,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class MarketListsController : Controller
     {
         private readonly HttpClient _client;
-        private const string ApiRequestUri = "api/MarketLists/";
+        private const string ApiRequestUri = "api/MarketLists";
         ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
         public const string ApplicationJson = "application/json";
 
@@ -48,7 +48,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketListViewModel = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
+            var marketListViewModel = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"/{ApiRequestUri}{id}"));
 
             if (marketListViewModel == null)
             {
@@ -96,7 +96,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 
             //var content = new Form
 
-            await _client.PostAsync(ApiRequestUri, new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
+            await _client.PostAsync($"/{ApiRequestUri}", new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
             return RedirectToAction(nameof(Index));
         }
 
@@ -108,7 +108,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketList = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
+            var marketList = JsonConvert.DeserializeObject<MarketListViewModel>(await _client.GetStringAsync($"/{ApiRequestUri}{id}"));
             if (marketList == null)
             {
                 return NotFound();
@@ -145,7 +145,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
             {
                 var serializedObject = JsonConvert.SerializeObject(marketList);
 
-                await _client.PutAsync($"{ApiRequestUri}{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
+                await _client.PutAsync($"/{ApiRequestUri}{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -171,7 +171,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var marketList = await _client.GetStringAsync($"{ApiRequestUri}{id}");
+            var marketList = await _client.GetStringAsync($"/{ApiRequestUri}{id}");
             if (marketList == null)
             {
                 return NotFound();
@@ -185,7 +185,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _client.DeleteAsync($"{ApiRequestUri}{id}");
+            await _client.DeleteAsync($"/{ApiRequestUri}{id}");
             return RedirectToAction(nameof(Index));
         }
 
