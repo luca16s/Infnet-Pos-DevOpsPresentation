@@ -16,9 +16,9 @@ namespace DeadFishStudio.MarketList.Infrastructure.CrossCutting
             var marketListConfig = new MarketListConfiguration();
             configuration.GetSection(nameof(MarketListConfiguration)).Bind(marketListConfig);
 
-            services.AddTransient(typeof(IMarketListRepositoryAsync), typeof(MarketListRepositoryAsync));
-            services.AddTransient(typeof(IMarketListServiceAsync), typeof(MarketListServiceAsync));
-            services.AddTransient(typeof(IUnitOfWork), typeof(MarketListContext));
+            services.AddScoped(typeof(IMarketListRepositoryAsync), typeof(MarketListRepositoryAsync));
+            services.AddScoped(typeof(IMarketListServiceAsync), typeof(MarketListServiceAsync));
+            services.AddScoped(typeof(IUnitOfWork), typeof(MarketListContext));
             services.AddCustomDbContext(marketListConfig);
         }
     }

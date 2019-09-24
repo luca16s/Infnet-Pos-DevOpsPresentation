@@ -45,7 +45,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44361
-      - ConnectionString=Server=mssql;Database=MarketListApiDB;User Id=sa;Password=Alaska2017;
     ports:
       - "53452:80"
       - "44361:443"
@@ -66,7 +65,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44301
-      - ConnectionString=Server=mssql;Database=ProductApiDB;User Id=sa;Password=Alaska2017;
     ports:
       - "65400:80"
       - "44301:443"
