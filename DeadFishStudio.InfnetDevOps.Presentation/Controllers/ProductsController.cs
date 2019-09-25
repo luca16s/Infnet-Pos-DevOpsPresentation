@@ -48,7 +48,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
+            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}/{id}"));
 
             if (product == null)
             {
@@ -92,7 +92,12 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 
             //var content = new Form
 
-            await _client.PostAsync(ApiRequestUri, new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var httpContent = new StringContent(JsonConvert.SerializeObject(product));
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            await _client.PostAsync($"{ApiRequestUri}", httpContent);
             return RedirectToAction(nameof(Index));
         }
 
@@ -104,7 +109,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}{id}"));
+            var product = JsonConvert.DeserializeObject<ProductViewModel>(await _client.GetStringAsync($"{ApiRequestUri}/{id}"));
             if (product == null)
             {
                 return NotFound();
@@ -141,7 +146,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 {
                     var serializedObject = JsonConvert.SerializeObject(product);
 
-                    await _client.PutAsync($"{ApiRequestUri}{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
+                    await _client.PutAsync($"{ApiRequestUri}/{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -167,7 +172,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 return NotFound();
             }
 
-            var product = await _client.GetStringAsync($"{ApiRequestUri}{id}");
+            var product = await _client.GetStringAsync($"{ApiRequestUri}/{id}");
             if (product == null)
             {
                 return NotFound();
@@ -181,13 +186,13 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var product = await _client.GetStringAsync($"{ApiRequestUri}{id}");
+            var product = await _client.GetStringAsync($"{ApiRequestUri}/{id}");
             var serializeObject = JsonConvert.SerializeObject(product);
             var buffer = System.Text.Encoding.UTF8.GetBytes(serializeObject);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue(ApplicationJson);
 
-            await _client.DeleteAsync($"{ApiRequestUri}{id}");
+            await _client.DeleteAsync($"{ApiRequestUri}/{id}");
 
             return RedirectToAction(nameof(Index));
         }

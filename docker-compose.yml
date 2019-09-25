@@ -7,11 +7,11 @@ services:
       SA_PASSWORD: "Alaska2017"
       ACCEPT_EULA: "Y"
     healthcheck:
-      test: sqlcmd -S devops-network -U SA -P 'Alaska2017' -Q 'select distinct 1 from master'
+      test: sqlcmd -S devopsnetwork -U SA -P 'Alaska2017' -Q 'select distinct 1 from master'
     ports:
       - "1433:1433"
     networks:
-      - devops-network
+      - devopsnetwork
 
   deadfishstudio.infnetdevops.presentation:
     image: luca16s/devops_marketlist_presentation
@@ -32,7 +32,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
-      - devops-network
+      - devopsnetwork
 
   deadfishstudio.marketlist.application.api:
     image: luca16s/devops_marketlist_api
@@ -52,7 +52,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
-      - devops-network
+      - devopsnetwork
 
   deadfishstudio.product.application.api:
     image: luca16s/devops_product_api
@@ -72,8 +72,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     networks:
-      - devops-network
+      - devopsnetwork
 
 networks:
-  devops-network:
+  devopsnetwork:
     driver: bridge
