@@ -15,7 +15,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class MarketListsController : Controller
     {
         private readonly HttpClient _client;
-        private const string ApiRequestUri = "api/MarketLists";
+        private const string ApiRequestUri = "api/MarketLists/";
         ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
         public const string ApplicationJson = "application/json";
 

@@ -16,7 +16,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class ProductsController : Controller
     {
         private readonly HttpClient _client;
-        private const string ApiRequestUri = "api/Products";
+        private const string ApiRequestUri = "api/Products/";
         ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
         public const string ApplicationJson = "application/json";
 
@@ -92,7 +92,12 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 
             //var content = new Form
 
-            await _client.PostAsync(ApiRequestUri, new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var httpContent = new StringContent(JsonConvert.SerializeObject(product));
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            await _client.PostAsync($"{ApiRequestUri}", httpContent);
             return RedirectToAction(nameof(Index));
         }
 
