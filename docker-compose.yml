@@ -14,7 +14,7 @@ services:
       - devopsnetwork
 
   deadfishstudio.infnetdevops.presentation:
-    image: ${DOCKER_REGISTRY}devops_marketlist_presentation
+    image: luca16s/devops_marketlist_presentation
     build:
       context: .
       dockerfile: DeadFishStudio.InfnetDevOps.Presentation/Dockerfile
@@ -35,7 +35,7 @@ services:
       - devopsnetwork
 
   deadfishstudio.marketlist.application.api:
-    image: ${DOCKER_REGISTRY}devops_marketlist_api
+    image: luca16s/devops_marketlist_api
     build:
       context: .
       dockerfile: DeadFishStudio.MarketList.Application.Api/Dockerfile
@@ -55,7 +55,7 @@ services:
       - devopsnetwork
 
   deadfishstudio.product.application.api:
-    image: ${DOCKER_REGISTRY}devops_product_api
+    image: luca16s/devops_product_api
     build:
       context: .
       dockerfile: DeadFishStudio.Product.Application.Api/Dockerfile
