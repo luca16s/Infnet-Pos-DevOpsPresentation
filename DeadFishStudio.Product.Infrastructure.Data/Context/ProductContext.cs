@@ -20,12 +20,10 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
 
         public ProductContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public ProductContext()
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -44,6 +42,8 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
             if (_currentTransaction != null) return null;
+
+            await Database.EnsureCreatedAsync();
 
             _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
             return _currentTransaction;
