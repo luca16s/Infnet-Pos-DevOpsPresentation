@@ -6,8 +6,6 @@ services:
     environment:
       SA_PASSWORD: "Alaska2017"
       ACCEPT_EULA: "Y"
-    healthcheck:
-      test: sqlcmd -S devopsnetwork -U SA -P 'Alaska2017' -Q 'select distinct 1 from master'
     ports:
       - "5433:1433"
 
