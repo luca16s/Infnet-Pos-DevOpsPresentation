@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   mssql:
-    image: mcr.microsoft.com/mssql/server
+    image: "microsoft/mssql-server-linux:latest"
     environment:
       SA_PASSWORD: "Alaska2017"
       ACCEPT_EULA: "Y"
@@ -25,7 +25,6 @@ services:
   marketlist.api:
     image: luca16s/devops_marketlist_api
     environment:
-      - ConnectionString=mssql;Database=MarketListDb;User Id=sa;Password=Alaska2017'
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     expose:
@@ -38,7 +37,6 @@ services:
   product.api:
     image: luca16s/devops_product_api
     environment:
-      - ConnectionString=Server=mssql;Database=ProductDb;User Id=sa;Password=Alaska2017
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     expose:

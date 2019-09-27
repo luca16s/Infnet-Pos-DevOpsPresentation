@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 {
-    public class MarketListContext : DbContext, IUnitOfWork
+    public sealed class MarketListContext : DbContext, IUnitOfWork
     {
         public const string DefaultSchema = "deadfish";
         private IDbContextTransaction _currentTransaction;
@@ -18,10 +18,12 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 
         public MarketListContext()
         {
+            Database.EnsureCreatedAsync();
         }
 
         public MarketListContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreatedAsync();
         }
 
         public DbSet<Domain.Model.Entities.MarketList> MarketList { get; set; }
