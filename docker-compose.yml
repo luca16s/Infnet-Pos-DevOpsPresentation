@@ -11,55 +11,40 @@ services:
 
   deadfishstudio.infnetdevops.presentation:
     image: luca16s/devops_marketlist_presentation
-    build:
-      context: .
-      dockerfile: DeadFishStudio.InfnetDevOps.Presentation/Dockerfile
-    depends_on:
-      - deadfishstudio.marketlist.application.api
-      - deadfishstudio.product.application.api
     environment:
+      - ProductUrl=http://product.api
+      - MarketListUrl=http://marketlist.api
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_HTTPS_PORT=44396
     ports:
       - "53937:80"
-      - "44396:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
-  deadfishstudio.marketlist.application.api:
-    image: luca16s/devops_marketlist_api
-    build:
-      context: .
-      dockerfile: DeadFishStudio.MarketList.Application.Api/Dockerfile
     depends_on:
-      - mssql
+      - marketlist.api
+      - product.api
+
+  marketlist.api:
+    image: luca16s/devops_marketlist_api
     environment:
+      - ConnectionString=mssql;Database=MarketListDb;User Id=sa;Password=Alaska2017
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_HTTPS_PORT=44361
+      - ASPNETCORE_URLS=http://+:80
+    expose:
+      - "80"
     ports:
       - "53452:80"
-      - "44361:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
-  deadfishstudio.product.application.api:
-    image: luca16s/devops_product_api
-    build:
-      context: .
-      dockerfile: DeadFishStudio.Product.Application.Api/Dockerfile
     depends_on:
       - mssql
+
+  product.api:
+    image: luca16s/devops_product_api
     environment:
+      - ConnectionString=Server=mssql;Database=ProductDb;User Id=sa;Password=Alaska2017
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_HTTPS_PORT=44301
+      - ASPNETCORE_URLS=http://+:80
+    expose:
+      - "80"
     ports:
       - "65400:80"
-      - "44301:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - mssql
