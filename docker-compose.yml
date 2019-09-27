@@ -25,7 +25,7 @@ services:
   marketlist.api:
     image: luca16s/devops_marketlist_api
     environment:
-      - ConnectionString="mssql;Database=MarketListDb;User Id=sa;Password=Alaska2017""
+      - ConnectionString=mssql;Database=MarketListDb;User Id=sa;Password=Alaska2017'
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     expose:
@@ -38,7 +38,7 @@ services:
   product.api:
     image: luca16s/devops_product_api
     environment:
-      - ConnectionString="Server=mssql;Database=ProductDb;User Id=sa;Password=Alaska2017"
+      - ConnectionString=Server=mssql;Database=ProductDb;User Id=sa;Password=Alaska2017
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     expose:
