@@ -70,11 +70,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] MarketListViewModel marketList)
         {
-            //[Bind("Name,DataDeCriacao,DataDeModificacao")]
             marketList.Id = Guid.NewGuid();
-            marketList.Name = "A";
-            marketList.DataDeCriacao = DateTime.Now;
-            marketList.DataDeModificacao = DateTime.Now;
             marketList.ItemViewModels = new ItemViewModel<MarketListProductViewModel>
             {
                 new MarketListProductViewModel()
@@ -86,14 +82,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 }
             };
 
-            //if (!ModelState.IsValid) return View(product);
-
             var serializedObject = JsonConvert.SerializeObject(marketList);
-            //var buffer = System.Text.Encoding.UTF8.GetBytes(serializeObject);
-            //var byteContent = new ByteArrayContent(buffer);
-            //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            //var content = new Form
 
             await _client.PostAsync($"{ApiRequestUri}", new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
             return RedirectToAction(nameof(Index));
@@ -137,8 +126,6 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 }
             };
 
-            //if (ModelState.IsValid)
-            //{
             try
             {
                 var serializedObject = JsonConvert.SerializeObject(marketList);
@@ -157,8 +144,6 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 }
             }
             return RedirectToAction(nameof(Index));
-            //}
-            return View(marketList);
         }
 
         // GET: MarketLists/Delete/5

@@ -18,12 +18,12 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
 
         public MarketListContext()
         {
-            Database.EnsureCreatedAsync();
+            Database?.EnsureCreated();
         }
 
         public MarketListContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreatedAsync();
+            Database?.EnsureCreated();
         }
 
         public DbSet<Domain.Model.Entities.MarketList> MarketList { get; set; }

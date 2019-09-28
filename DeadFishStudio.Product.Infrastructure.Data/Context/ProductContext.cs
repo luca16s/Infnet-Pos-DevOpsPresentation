@@ -20,12 +20,12 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
 
         public ProductContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreatedAsync();
+            Database?.EnsureCreated();
         }
 
         public ProductContext()
         {
-            Database.EnsureCreatedAsync();
+            Database?.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -16,13 +16,13 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
     public class ProductsController : Controller
     {
         private readonly HttpClient _client;
-        private const string ApiRequestUri = "Products";
+        private const string ApiRequestUri = "api/Products";
         ///<summary>JavaScript Object Notation JSON; Defined in RFC 4627</summary>
         public const string ApplicationJson = "application/json";
 
         public ProductsController(IHttpClientFactory httpClientFactory)
         {
-            _client  = httpClientFactory.CreateClient(nameof(ProductApiConfiguration));
+            _client = httpClientFactory.CreateClient(nameof(ProductApiConfiguration));
         }
 
         // GET: Products
@@ -33,7 +33,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
             {
                 result = await _client.GetStringAsync(ApiRequestUri);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return View(new List<ProductViewModel>());
             }
@@ -68,7 +68,7 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Name,Quantity")] ProductViewModel product)
+        public async Task<IActionResult> Create([FromForm] ProductViewModel product)
         {
             product.Id = Guid.NewGuid();
             product.Prices = new List<PriceViewModel>
@@ -82,24 +82,11 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 }
             };
 
-            //if (!ModelState.IsValid) return View(product);
-
             var serializedObject = JsonConvert.SerializeObject(product);
-            //var buffer = System.Text.Encoding.UTF8.GetBytes(serializeObject);
-            //var byteContent = new ByteArrayContent(buffer);
-            //byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //var content = new Form
+            await _client.PostAsync($"{ApiRequestUri}", new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
 
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var httpContent = new StringContent(JsonConvert.SerializeObject(product));
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //EXPOSE 8080/tcp
-            //ENV ASPNETCORE_URLS https://*:8080
-
-            await _client.PostAsJsonAsync($"{ApiRequestUri}", serializedObject);
             return RedirectToAction(nameof(Index));
         }
 
@@ -141,28 +128,24 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
                 }
             };
 
-            //if (ModelState.IsValid)
-            //{
-                try
-                {
-                    var serializedObject = JsonConvert.SerializeObject(product);
+            try
+            {
+                var serializedObject = JsonConvert.SerializeObject(product);
 
-                    await _client.PutAsync($"{ApiRequestUri}/{id}", new StringContent(serializedObject, Encoding.UTF8,ApplicationJson));
-                }
-                catch (DbUpdateConcurrencyException)
+                await _client.PutAsync($"{ApiRequestUri}/{id}", new StringContent(serializedObject, Encoding.UTF8, ApplicationJson));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await ProductExists(product.Id))
                 {
-                    if (!await ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
-            //}
-            return View(product);
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Delete/5
