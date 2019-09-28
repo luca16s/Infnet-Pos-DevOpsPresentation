@@ -25,7 +25,7 @@ namespace DeadFishStudio.MarketList.Infrastructure.Data.Context
             // Get connection string
             var optionsBuilder = new DbContextOptionsBuilder<MarketListContext>();
             var connectionString = config.GetConnectionString(nameof(MarketListContext));
-            optionsBuilder.UseSqlServer("Server=10.0.75.1,5433;Initial Catalog=MarketListDb;User Id=sa;Password=Alaska2017");
+            optionsBuilder.UseSqlServer("Server=mssql,1433;Initial Catalog=MarketListDb;User Id=sa;Password=Alaska2017");
             return new MarketListContext(optionsBuilder.Options);
         }
     }

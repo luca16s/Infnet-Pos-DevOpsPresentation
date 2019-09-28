@@ -25,7 +25,7 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
             var optionsBuilder = new DbContextOptionsBuilder<ProductContext>();
             var connectionString = config.GetConnectionString(nameof(ProductContext));
             optionsBuilder.UseSqlServer(
-                @"Server=10.0.75.1,5433;Initial Catalog=ProductDb;User Id=sa;Password=Alaska2017");
+                @"Server=mssql,1433;Initial Catalog=ProductDb;User Id=sa;Password=Alaska2017");
             return new ProductContext(optionsBuilder.Options);
         }
     }

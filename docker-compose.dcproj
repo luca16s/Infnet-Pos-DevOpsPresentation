@@ -9,6 +9,7 @@
     <DockerServiceName>deadfishstudio.infnetdevops.presentation</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose.prod.yml" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
