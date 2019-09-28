@@ -43,6 +43,11 @@ namespace DeadFishStudio.Product.Infrastructure.Data.Context
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
+            if (await Database.CanConnectAsync())
+            {
+                return null;
+            }
+
             if (_currentTransaction != null) return null;
 
             await Database.EnsureCreatedAsync();

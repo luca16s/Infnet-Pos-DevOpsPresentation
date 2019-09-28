@@ -68,7 +68,6 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Quantity")] ProductViewModel product)
         {
             product.Id = Guid.NewGuid();
@@ -124,7 +123,6 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Name,Quantity,Id")] ProductViewModel product)
         {
             if (id != product.Id)
@@ -186,7 +184,6 @@ namespace DeadFishStudio.InfnetDevOps.Presentation.Controllers
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var product = await _client.GetStringAsync($"{ApiRequestUri}/{id}");

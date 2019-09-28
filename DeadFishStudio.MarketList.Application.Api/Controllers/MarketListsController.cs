@@ -81,7 +81,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
 
             if (id != pMarketList.Id) return BadRequest();
 
-            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
@@ -91,7 +91,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
                         return UnprocessableEntity();
 
                     _marketListServiceAsync.UpdateItem(id, marketList);
-                    await _unitOfWork.CommitTransactionAsync(transaction.Result);
+                    await _unitOfWork.CommitTransactionAsync(transaction);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,7 +119,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
         [ProducesResponseType((int) HttpStatusCode.UnprocessableEntity)]
         public async Task<ActionResult> PostMarketList(MarketListViewModel pMarketList)
         {
-            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
@@ -129,7 +129,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
                         return UnprocessableEntity();
 
                     await _marketListServiceAsync.AddItemAsync(marketList);
-                    await _unitOfWork.CommitTransactionAsync(transaction.Result);
+                    await _unitOfWork.CommitTransactionAsync(transaction);
                 }
                 catch (Exception ex)
                 {
@@ -151,7 +151,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
             if (id == Guid.Empty)
                 return BadRequest();
 
-            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
@@ -161,7 +161,7 @@ namespace DeadFishStudio.MarketList.Application.Api.Controllers
                         return NotFound();
 
                     _marketListServiceAsync.DeleteItem(marketList);
-                    await _unitOfWork.CommitTransactionAsync(transaction.Result);
+                    await _unitOfWork.CommitTransactionAsync(transaction);
                 }
                 catch (Exception ex)
                 {

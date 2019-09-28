@@ -16,9 +16,9 @@ namespace DeadFishStudio.Product.Infrastructure.CrossCutting
             var productConfig = new ProductConfiguration();
             configuration.GetSection(nameof(ProductConfiguration)).Bind(productConfig);
 
-            services.AddScoped(typeof(IProductRepositoryAsync), typeof(ProductRepositoryAsync));
-            services.AddScoped(typeof(IProductServiceAsync), typeof(ProductServiceAsync));
-            services.AddScoped(typeof(IUnitOfWork), typeof(ProductContext));
+            services.AddSingleton(typeof(IProductRepositoryAsync), typeof(ProductRepositoryAsync));
+            services.AddSingleton(typeof(IProductServiceAsync), typeof(ProductServiceAsync));
+            services.AddSingleton(typeof(IUnitOfWork), typeof(ProductContext));
             services.AddCustomDbContext(productConfig);
         }
     }

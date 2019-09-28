@@ -105,7 +105,7 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
             if (id == Guid.Empty)
                 return ValidationProblem();
 
-            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
@@ -115,7 +115,7 @@ namespace DeadFishStudio.Product.Application.Api.Controllers
                         return UnprocessableEntity();
 
                     var updatedProduct = _productServiceAsync.UpdateItem(id, product);
-                    await _unitOfWork.CommitTransactionAsync(transaction.Result);
+                    await _unitOfWork.CommitTransactionAsync(transaction);
                     return Ok(_mapper.Map<Domain.Model.Entity.Product, ProductViewModel>(updatedProduct));
                 }
                 catch (Exception ex)

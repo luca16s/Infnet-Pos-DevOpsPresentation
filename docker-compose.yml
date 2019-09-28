@@ -10,7 +10,10 @@ services:
       - "5433:1433"
 
   deadfishstudio.infnetdevops.presentation:
-    image: luca16s/devops_marketlist_presentation
+    image: ${DOCKER_REGISTRY-}devops_marketlist_presentation
+    build:
+      context: .
+      dockerfile: DeadFishStudio.InfnetDevOps.Presentation/Dockerfile
     environment:
       - ProductUrl=http://10.0.75.1:65400/
       - MarketListUrl=http://10.0.75.1:53452/
@@ -23,7 +26,10 @@ services:
       - product.api
 
   marketlist.api:
-    image: luca16s/devops_marketlist_api
+    image: ${DOCKER_REGISTRY-}devops_marketlist_api
+    build:
+      context: .
+      dockerfile: DeadFishStudio.MarketList.Application.Api/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
@@ -35,7 +41,10 @@ services:
       - mssql
 
   product.api:
-    image: luca16s/devops_product_api
+    image: ${DOCKER_REGISTRY-}devops_product_api
+    build:
+      context: .
+      dockerfile: DeadFishStudio.Product.Application.Api/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
